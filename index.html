@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHX 2026 · Forensic Revenue Engine + THA SHYT</title>
+    <meta name="description" content="Zero‑hallucination Phoenix coaching revenue forensics. All data attested from Oct 2025–Apr 2026.">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://api.deepseek.com; img-src 'self' data:;">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+    <style>
+        :root {
+            --bg-root: #000000;
+            --bg-panel: #1C1C1E;
+            --bg-panel-raised: #2C2C2E;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-strong: rgba(255, 255, 255, 0.14);
+            --text-main: #F5F5F7;
+            --text-secondary: #8E8E93;
+            --text-tertiary: #636366;
+            --accent: #E2FF3D;
+            --accent-glow: rgba(226, 255, 61, 0.18);
+            --accent-soft: rgba(226, 255, 61, 0.08);
+            --danger: #FF2A6D;
+            --danger-soft: rgba(255, 42, 109, 0.10);
+            --success: #32D74B;
+            --success-soft: rgba(50, 215, 75, 0.10);
+            --warn: #FF9F0A;
+            --warn-soft: rgba(255, 159, 10, 0.10);
+            --radius-sm: 12px;
+            --radius-md: 18px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+            --transition: 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: var(--bg-root);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            letter-spacing: -0.01em;
+        }
+        .glass-panel {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+        }
+        .glass-panel.raised {
+            background: var(--bg-panel-raised);
+        }
+        .card-stat {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1.25rem 1.5rem;
+            transition: transform var(--transition), box-shadow var(--transition);
+            cursor: default;
+        }
+        .card-stat:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+            border-color: var(--border-strong);
+        }
+        .btn-primary {
+            background: #FFFFFF;
+            color: #000000;
+            border: none;
+            border-radius: var(--radius-full);
+            padding: 0.7rem 1.8rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            transition: background 0.15s, transform 0.1s;
+            letter-spacing: -0.01em;
+        }
+        .btn-primary:hover {
+            background: #E8E8ED;
+            transform: scale(1.02);
+        }
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            padding: 0.45rem 1.2rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            transition: background 0.15s;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.10);
+        }
+        .segmented-control {
+            display: flex;
+            background: rgba(118, 118, 128, 0.20);
+            border-radius: 10px;
+            padding: 2px;
+            gap: 1px;
+        }
+        .segmented-control button {
+            flex: 1;
+            background: transparent;
+            color: var(--text-secondary);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 0.6rem;
+            font-weight: 500;
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-family: var(--font-sans);
+            white-space: nowrap;
+        }
+        .segmented-control button.active {
+            background: var(--bg-panel-raised);
+            color: #FFFFFF;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            font-weight: 600;
+        }
+        .segmented-control button:hover:not(.active) {
+            color: var(--text-main);
+        }
+        select,
+        input[type="number"],
+        input[type="text"],
+        textarea {
+            appearance: none;
+            -webkit-appearance: none;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.65rem 0.9rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-main);
+            width: 100%;
+            transition: border-color 0.15s;
+            outline: none;
+        }
+        select:hover,
+        input:hover,
+        textarea:hover {
+            border-color: var(--border-strong);
+        }
+        select:focus,
+        input:focus,
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+        }
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%238E8E93' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.8rem center;
+            background-size: 10px 6px;
+            padding-right: 2.2rem;
+            cursor: pointer;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .stat-num {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            font-variant-numeric: tabular-nums;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            border-radius: 20px;
+            padding: 0.2rem 0.75rem;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            border: 1px solid transparent;
+        }
+        .badge-accent {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-color: var(--accent-glow);
+        }
+        .badge-success {
+            background: var(--success-soft);
+            color: var(--success);
+        }
+        .badge-danger {
+            background: var(--danger-soft);
+            color: var(--danger);
+        }
+        .badge-warn {
+            background: var(--warn-soft);
+            color: var(--warn);
+        }
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+        }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        .slider-accent {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.10);
+            border-radius: 3px;
+            outline: none;
+            margin: 8px 0;
+        }
+        .slider-accent::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.12s;
+        }
+        .slider-accent::-webkit-slider-thumb:hover {
+            transform: scale(1.12);
+        }
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+        @media (max-width: 768px) {
+            .result-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 500px) {
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+            .card-stat {
+                padding: 1rem;
+            }
+        }
+        #decision-engine {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.45s ease, opacity 0.35s ease, margin 0.35s ease;
+        }
+        #decision-engine.open {
+            max-height: 5000px;
+            opacity: 1;
+            margin-top: 1.25rem;
+        }
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.4rem;
+        }
+        @media (max-width: 500px) {
+            .score-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .pipeline-bar {
+            transition: height 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+            border-radius: 6px 6px 0 0;
+            min-height: 4px;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-6 lg:p-8">
+    <main class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <header class="flex flex-wrap justify-between items-center mb-6 gap-4">
+            <div>
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight" style="letter-spacing:-0.03em;">
+                    <span style="background:linear-gradient(135deg, #E2FF3D 0%, #9DFF00 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Revenue</span>
+                    <span class="text-[var(--text-main)]"> Engine</span>
+                </h1>
+                <p class="text-[var(--text-secondary)] text-sm mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <span>Phoenix, Arizona</span>
+                    <span class="text-[var(--text-tertiary)]">·</span>
+                    <span>April 2026</span>
+                    <span class="text-[var(--text-tertiary)]">·</span>
+                    <span>Pop: 1,608,139</span>
+                    <span id="freshnessBadge" class="badge badge-warn ml-1"></span>
+                </p>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+                <button id="decisionToggleBtn" class="btn-secondary">Decision Engine</button>
+                <button id="aiToggleBtn" class="btn-secondary">AI Insight</button>
+            </div>
+        </header>
+
+        <!-- Decision Engine Panel -->
+        <div id="decision-engine" class="glass-panel p-5 md:p-6" role="region" aria-label="THA SHYT Decision Engine">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold tracking-tight">THA SHYT Decision Engine</h2>
+                <span class="text-xs text-[var(--text-tertiary)] font-mono">Consulting Offer Wedge Scorer</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+                <div>
+                    <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Idea Label</label>
+                    <input type="text" id="ideaLabel" placeholder="e.g. Burnout Coach Intake AI">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Domain</label>
+                    <select id="ideaDomain">
+                        <option value="">-- Select domain --</option>
+                        <option value="ai_workflow">AI workflow architecture</option>
+                        <option value="role_prompting">Role‑specific prompting systems</option>
+                        <option value="team_training">Team training</option>
+                        <option value="intake_qa">Intake / QA systems</option>
+                        <option value="impl_cleanup">Implementation cleanup</option>
+                        <option value="sops">SOPs / playbooks</option>
+                        <option value="prompt_library">Prompt library</option>
+                    </select>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
+                <div><label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Buyer</label><input type="text" id="fieldBuyer" placeholder="Who pays?"></div>
+                <div><label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Role/Team</label><input type="text" id="fieldRole" placeholder="Who uses it?"></div>
+                <div><label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Task</label><input type="text" id="fieldTask" placeholder="Recurring task"></div>
+                <div><label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Outcome</label><input type="text" id="fieldOutcome" placeholder="Measurable result"></div>
+            </div>
+            <div class="score-grid mb-2">
+                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">V - Value</label><input type="number" id="scoreV" value="5" min="1" max="10"></div>
+                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">M - Money</label><input type="number" id="scoreM" value="5" min="1" max="10"></div>
+                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">N - Now</label><input type="number" id="scoreN" value="5" min="1" max="10"></div>
+                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">L - Simplicity</label><input type="number" id="scoreL" value="5" min="1" max="10"></div>
+                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">S - Scale</label><input type="number" id="scoreS" value="5" min="1" max="10"></div>
+                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">E - Ease</label><input type="number" id="scoreE" value="5" min="1" max="10"></div>
+                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">F - Fun</label><input type="number" id="scoreF" value="5" min="1" max="10"></div>
+                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">A - Automation</label><input type="number" id="scoreA" value="5" min="1" max="10"></div>
+            </div>
+            <div class="score-grid mb-3">
+                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CV</label><input type="number" id="confV" value="2" min="0" max="3"></div>
+                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CM</label><input type="number" id="confM" value="2" min="0" max="3"></div>
+                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CN</label><input type="number" id="confN" value="2" min="0" max="3"></div>
+                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CL</label><input type="number" id="confL" value="2" min="0" max="3"></div>
+                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CS</label><input type="number" id="confS" value="2" min="0" max="3"></div>
+                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CE</label><input type="number" id="confE" value="2" min="0" max="3"></div>
+                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CF</label><input type="number" id="confF" value="2" min="0" max="3"></div>
+                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CA</label><input type="number" id="confA" value="2" min="0" max="3"></div>
+            </div>
+            <textarea id="evidenceText" rows="2" placeholder="Optional evidence to justify confidence scores" class="mb-3"></textarea>
+            <div class="flex flex-wrap gap-2">
+                <button id="scoreIdeaBtn" class="btn-primary">Score Idea</button>
+                <button id="addIdeaBtn" class="btn-secondary">Add to List</button>
+                <button id="clearIdeasBtn" class="btn-secondary" style="color:var(--danger);border-color:var(--danger-soft);">Clear All</button>
+            </div>
+            <div id="decisionResults" class="mt-4 space-y-3"></div>
+            <p id="decisionStatus" class="text-xs text-[var(--text-tertiary)] mt-2 font-mono">Awaiting input. Fill all four fields and click Score Idea.</p>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 mt-5">
+            <!-- LEFT: Controls (5 cols) -->
+            <aside class="lg:col-span-5 space-y-5">
+                <!-- Pricing Model -->
+                <div class="glass-panel p-5 space-y-4">
+                    <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Pricing Model</h2>
+                    <div>
+                        <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5">Service Niche</label>
+                        <div id="nicheGroup" class="segmented-control">
+                            <button data-niche="burnout" class="active">Burnout</button>
+                            <button data-niche="executive">Executive</button>
+                            <button data-niche="generalist">Generalist</button>
+                            <button data-niche="health">Health</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5">Package Tier</label>
+                        <div id="packageGroup" class="segmented-control">
+                            <button data-tier="floor" class="active">Floor $150</button>
+                            <button data-tier="mid">Mid $1,500</button>
+                            <button data-tier="ceiling">Ceiling $15,000</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <span class="text-[13px] font-medium">Client Lifespan</span>
+                            <span class="text-sm font-bold font-mono" id="lifespanVal">1 Session</span>
+                        </div>
+                        <input type="range" id="lifespanSlider" min="1" max="24" value="1" class="slider-accent">
+                    </div>
+                </div>
+
+                <!-- Traffic & Channel Allocation -->
+                <div class="glass-panel p-5 space-y-4">
+                    <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Capital & Channels</h2>
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <span class="text-[13px] font-medium">Monthly Acq Budget</span>
+                            <span class="text-xl font-bold font-mono" style="color:var(--accent)" id="budgetDisplay">$5,000</span>
+                        </div>
+                        <input type="range" id="budgetSlider" min="500" max="50000" step="500" value="5000" class="slider-accent">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5">Conversion Scenario</label>
+                        <div id="scenarioGroup" class="segmented-control">
+                            <button data-scenario="conservative">Conservative</button>
+                            <button data-scenario="expected" class="active">Expected</button>
+                            <button data-scenario="aggressive">Aggressive</button>
+                        </div>
+                    </div>
+                    <div class="border-t border-[var(--border)] pt-4">
+                        <div class="flex justify-between items-end mb-3">
+                            <span class="text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Channel Distribution</span>
+                            <span class="text-xs font-mono text-[var(--text-tertiary)]">Blended CPC: <span id="blendedCpcDisplay">$2.96</span></span>
+                        </div>
+                        <div id="channelSliders" class="space-y-3">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Infrastructure & AI Intake -->
+                <div class="glass-panel p-5 space-y-4">
+                    <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Infrastructure & AI</h2>
+                    <div>
+                        <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5">Digital Infra</label>
+                        <div id="infraGroup" class="segmented-control">
+                            <button data-infra="freelance" class="active">Freelance</button>
+                            <button data-infra="agency">Agency</button>
+                            <button data-infra="ecommerce">Ecommerce</button>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 bg-black/25 rounded-xl border border-[var(--border)] p-3">
+                        <div class="flex-1">
+                            <span class="text-[10px] uppercase font-semibold tracking-wider text-[var(--text-tertiary)]">Capex (12m Amort)</span>
+                            <p class="text-base font-bold font-mono mt-0.5" id="amortCapexDisplay">$667/mo</p>
+                        </div>
+                        <div class="flex-1 border-l border-[var(--border)] pl-4">
+                            <span class="text-[10px] uppercase font-semibold tracking-wider text-[var(--text-tertiary)]">Monthly Opex</span>
+                            <p class="text-base font-bold font-mono mt-0.5" id="monthlyOpexDisplay">$1,200/mo</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center pt-2 border-t border-[var(--border)]">
+                        <div>
+                            <span class="text-[13px] font-semibold">AI Intake Backend</span>
+                            <p class="text-[10px] text-[var(--text-tertiary)] mt-0.5">85% of clients prefer human coaches</p>
+                        </div>
+                        <label class="relative inline-block w-11 h-6">
+                            <input type="checkbox" id="aiIntakeToggle" class="sr-only">
+                            <span class="absolute inset-0 rounded-full transition-colors duration-300 cursor-pointer" style="background:rgba(118,118,128,0.5);" id="aiToggleBg"></span>
+                            <span class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-300" id="aiToggleDot"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Resolved Contradictions + AI -->
+                <div class="glass-panel p-5 space-y-3">
+                    <h3 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Resolved Contradictions</h3>
+                    <div class="text-xs font-mono space-y-1.5">
+                        <p>Income baseline: <span id="baselineInc" class="font-bold">$73,935</span></p>
+                        <p>Job growth band: <span id="growthBand">-0.2% to +1.1%</span></p>
+                        <p>Active disputes: <span id="contradictionsCount" class="font-bold" style="color:var(--warn)">3</span></p>
+                    </div>
+                    <hr>
+                    <div>
+                        <h3 class="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)]">DeepSeek Insight</h3>
+                        <div id="aiInsightBox" class="mt-1.5 p-3 bg-black/25 rounded-lg text-xs whitespace-pre-line text-[var(--text-tertiary)] leading-relaxed">
+                            Enable AI Insights with your API key (session only).
+                        </div>
+                        <button id="clearKeyBtn" class="btn-secondary text-xs mt-2 hidden">Clear API key</button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- RIGHT: Results & Forensics (7 cols) -->
+            <section class="lg:col-span-7 space-y-5">
+                <!-- True Net P&L -->
+                <div class="glass-panel flex flex-col md:flex-row overflow-hidden">
+                    <div class="md:w-3/5 p-6 md:p-8 flex flex-col justify-center">
+                        <span class="text-[11px] uppercase font-bold tracking-widest text-[var(--text-secondary)] mb-2">True Net Profit (Monthly)</span>
+                        <h2 class="text-5xl md:text-6xl font-extrabold tracking-tight font-mono" id="trueNetDisplay" style="color:var(--text-main)">$0</h2>
+                    </div>
+                    <div class="md:w-2/5 p-6 flex flex-col justify-center gap-3 bg-black/20 border-t md:border-t-0 md:border-l border-[var(--border)]">
+                        <div class="flex flex-col border-b border-[var(--border)] pb-2"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Gross Revenue</span><span class="text-lg font-bold font-mono" id="grossRevDisplay">$0</span></div>
+                        <div class="flex flex-col border-b border-[var(--border)] pb-2"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Acq Budget</span><span class="text-lg font-bold font-mono text-[var(--danger)]" id="acqBudgetDisplay">-$5,000</span></div>
+                        <div class="flex flex-col border-b border-[var(--border)] pb-2"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Infra Opex</span><span class="text-lg font-bold font-mono text-[var(--danger)]" id="infraOpexDisplay">-$1,200</span></div>
+                        <div class="flex flex-col"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Capex (Amort)</span><span class="text-lg font-bold font-mono text-[var(--danger)]" id="capexAmortDisplay">-$667</span></div>
+                    </div>
+                </div>
+
+                <!-- KPI Grid -->
+                <div class="result-grid">
+                    <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1">Client LTV</p><p id="ltvDisplay" class="stat-num text-xl">$1,500</p></div>
+                    <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1">Blended CAC</p><p id="cacDisplay" class="stat-num text-xl">--</p></div>
+                    <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1">LTV:CAC</p><p id="ltvCacDisplay" class="stat-num text-xl" style="color:var(--success)">--</p></div>
+                    <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1">Clients/Mo</p><p id="clientsDisplay" class="stat-num text-xl">--</p></div>
+                </div>
+
+                <!-- Pipeline Bar Chart -->
+                <div class="glass-panel p-5" style="min-height:320px;">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Funnel Topology</h3>
+                        <div class="flex gap-3 text-xs">
+                            <span class="text-[var(--text-tertiary)]">MFM IDX: <span id="mfmDisplay" style="color:var(--accent)">1.00x</span></span>
+                            <span class="text-[var(--text-tertiary)] border-l border-[var(--border)] pl-3">EFF CONV: <span id="effConvDisplay" class="text-[var(--text-main)]">2.35%</span></span>
+                        </div>
+                    </div>
+                    <div id="pipelineChart" class="flex items-end justify-between gap-2 h-48">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Forensic Data Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="glass-panel p-4"><h3 class="text-sm font-semibold mb-2"><span class="badge badge-accent">Demand</span></h3><ul class="text-xs space-y-1.5" style="list-style:none;"><li class="flex justify-between"><span class="text-[var(--text-secondary)]">"life coach"</span> <span class="font-mono" id="svLife">18k</span>/mo</li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">"career coach"</span> <span class="font-mono" id="svCareer">14k</span>/mo</li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">"life coach near me"</span> <span class="font-mono" id="svNear">7.5k</span>/mo</li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">"transformational coach"</span> <span class="font-mono" id="svTrans">2.9k</span>/mo</li><li class="pt-1.5 mt-1.5 border-t border-[var(--border)] text-[var(--text-tertiary)]">CPC: consumer <span class="font-mono text-[var(--text-main)]" id="cpcConsumer">$6.40</span>, business <span class="font-mono text-[var(--text-main)]" id="cpcBusiness">$4.90</span>, search <span class="font-mono text-[var(--text-main)]" id="cpcSearch">$2.96</span></li></ul></div>
+                    <div class="glass-panel p-4"><h3 class="text-sm font-semibold mb-2"><span class="badge badge-accent">Competition</span></h3><ul class="text-xs space-y-1.5" style="list-style:none;"><li class="flex justify-between"><span class="text-[var(--text-secondary)]">US coaches</span> <span class="font-mono" id="coachTotal">232k</span></li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">PT businesses</span> <span class="font-mono" id="ptBiz">728k</span></li><li class="flex"><span class="text-[var(--text-secondary)]">Whitespace:</span> <span id="whitespace" class="ml-1">Burnout, GLP-1, exec coaching</span></li><li class="pt-1.5 mt-1.5 border-t border-[var(--border)] text-[var(--text-tertiary)]">Creator earnings: <$10k <span class="font-mono text-[var(--text-main)]" id="creatorLow">48.7%</span>, $10-100k <span class="font-mono text-[var(--text-main)]" id="creatorMid">45.6%</span>, >$100k <span class="font-mono text-[var(--text-main)]" id="creatorHigh">5.7%</span></li></ul></div>
+                    <div class="glass-panel p-4"><h3 class="text-sm font-semibold mb-2"><span class="badge badge-accent">Local Infra</span></h3><ul class="text-xs space-y-1.5" style="list-style:none;"><li><span class="text-[var(--text-secondary)]">Agencies:</span> <span id="agenciesList"></span></li><li><span class="text-[var(--text-secondary)]">Venues:</span> <span id="venuesList"></span></li><li><span class="text-[var(--text-secondary)]">Web build:</span> <span id="webCosts"></span></li></ul></div>
+                    <div class="glass-panel p-4"><h3 class="text-sm font-semibold mb-2"><span class="badge badge-accent">Throughput</span></h3><ul class="text-xs space-y-1.5" style="list-style:none;"><li class="flex justify-between"><span class="text-[var(--text-secondary)]">Solo ceiling</span> <span class="font-mono" id="soloCeiling">5/mo</span></li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">Billable hrs/client</span> <span class="font-mono" id="billableHours">65</span></li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">Trainers with AI</span> <span class="font-mono" id="aiAdoption">64%</span></li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">Prefer human</span> <span class="font-mono" id="humanPref">85%</span></li><li class="flex justify-between pt-1.5 mt-1.5 border-t border-[var(--border)]"><span class="text-[var(--text-secondary)]">AI market 2026</span> <span class="font-mono" id="aiMarket">$5.8B</span></li></ul></div>
+                    <div class="glass-panel p-4 md:col-span-2"><h3 class="text-sm font-semibold mb-2"><span class="badge badge-accent">Microtargeting</span></h3><div class="text-xs grid grid-cols-3 gap-3"><div><span class="font-semibold">Zone 1</span><br><span id="zone1" class="text-[var(--text-tertiary)]"></span></div><div><span class="font-semibold">Zone 2</span><br><span id="zone2" class="text-[var(--text-tertiary)]"></span></div><div><span class="font-semibold">Zone 3</span><br><span id="zone3" class="text-[var(--text-tertiary)]"></span></div></div><p class="text-xs mt-2"><span class="font-semibold">B2B Targets:</span> <span id="leadTargets" class="text-[var(--text-tertiary)]"></span></p></div>
+                </div>
+
+                <!-- System Diagnostics -->
+                <div id="systemGates" class="glass-panel p-4 space-y-1.5"></div>
+
+                <!-- Footer -->
+                <footer class="text-xs text-[var(--text-tertiary)] flex flex-wrap justify-between gap-2 pt-4 border-t border-[var(--border)]">
+                    <span><strong>bndrllc.com</strong> | BNDR LLC ALL RIGHTS RESERVED</span>
+                    <span>
+                        <a href="https://www.dropbox.com/scl/fi/um6xi0vfzj0w03kgxtrq2/privacy.html?rlkey=6ylhioa276mrynqylvxc19u7v&st=iakils4n&raw=1" class="hover:text-[var(--text-main)] transition-colors">Privacy</a> -
+                        <a href="https://www.dropbox.com/scl/fi/um6xi0vfzj0w03kgxtrq2/privacy.html?rlkey=6ylhioa276mrynqylvxc19u7v&st=28ft9zz3&raw=1" class="hover:text-[var(--text-main)] transition-colors">Terms</a> -
+                        <a href="https://linkedin.com" class="hover:text-[var(--text-main)] transition-colors">LinkedIn</a> -
+                        <a href="https://github.com/bndrbots" class="hover:text-[var(--text-main)] transition-colors">GitHub</a>
+                    </span>
+                </footer>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // ==================== CONFIG (perishable data) ====================
+        const CONFIG = {
+            lastUpdated: '2026-04-15',
+            medianIncomeSingle: 73935,
+            jobGrowth: { recent: -0.2, forecast: 1.1 },
+            searchVolumes: { life_coach: 18000, career_coach: 14000, near_me: 7500, transformational: 2900 },
+            cpc: { seo: 2.96, social: 1.50, ads: 6.40 },
+            coaching: { totalUSCoaches: 232000, aiAdoption: 64, humanPref: 85, aiMarket: 5.8 },
+            creator: { low: 48.7, mid: 45.6, high: 5.7 },
+            smallBiz: { ptBusinesses: 728000 },
+            agencies: ['Homemade Social', 'Nuanced Media', 'Quimby Digital', 'Colling Media', 'Thrive Agency', 'Growth Logiq', 'Digitaleer'],
+            venues: 'Desert Diamond Arena ($42M redesign), Rebel Lounge, Crescent Ballroom',
+            webCosts: { freelance: '$3k-$8k', agency: '$8k-$15k', ecommerce: '$45k-$250k' },
+            webCapexRanges: { freelance: [3000, 8000], agency: [8000, 15000], ecommerce: [45000, 250000] },
+            webOpex: { freelance: 300, agency: 1200, ecommerce: 6500 },
+            microtargeting: { zone1: '85253 ($337k), 85262', zone2: '85281 Tempe/ASU', zone3: '85004 Central Phoenix' },
+            leadTargets: ['Blue Signal Search', 'Mark-Taylor Residential', 'Western Alliance Bank'],
+            whitespace: 'Burnout (76%), GLP-1 muscle preservation, executive coaching.',
+            soloCeiling: 5,
+            billableHrs: 65,
+        };
+
+        const CONSTANTS = {
+            conversion: { conservative: { conv: 1.87, cpc_mod: 1.20 }, expected: { conv: 2.35, cpc_mod: 1.00 }, aggressive: { conv: 5.31, cpc_mod: 0.85 } },
+            funnel: { lead_to_mql: 0.31, mql_to_meeting: 0.62, meeting_to_close: 0.30 },
+            pricing: { floor: { price: 150, desc: 'Automated or group delivery' }, mid: { price: 1500, desc: 'Hybrid 1-on-1 and asynchronous' }, ceiling: { price: 15000, desc: 'Premium, high-touch 1-on-1' } },
+            targetLtvCac: 3,
+            humanPrefPct: 85,
+        };
+
+        const $ = id => document.getElementById(id);
+        const fmtC = n => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
+        const fmtN = n => new Intl.NumberFormat('en-US').format(n);
+
+        // ==================== STATE ====================
+        let state = {
+            budget: 5000,
+            infra: 'freelance',
+            packageTier: 'floor',
+            scenario: 'expected',
+            channelMix: { seo: 40, ads: 40, social: 20 },
+            clientLifespanSessions: 1,
+            aiIntakeEnabled: false,
+            niche: 'burnout',
+        };
+
+        // ==================== FRESHNESS BADGE ====================
+        (function() {
+            const last = new Date(CONFIG.lastUpdated);
+            const days = Math.floor((Date.now() - last) / 86400000);
+            const badge = $('freshnessBadge');
+            badge.innerText = `Updated ${CONFIG.lastUpdated} (${days}d)`;
+            badge.className = 'badge ' + (days > 180 ? 'badge-danger' : days > 90 ? 'badge-warn' : 'badge-success');
+        })();
+
+        // ==================== SEGMENTED CONTROL HELPERS ====================
+        function setupSegmented(groupId, callback) {
+            const group = $(groupId);
+            if (!group) return;
+            group.addEventListener('click', e => {
+                const btn = e.target.closest('button');
+                if (!btn) return;
+                group.querySelectorAll('button').forEach(b => { b.classList.remove('active'); });
+                btn.classList.add('active');
+                callback(btn);
+            });
+        }
+
+        // Niche
+        setupSegmented('nicheGroup', btn => { state.niche = btn.dataset.niche; runEngine(); });
+        // Package Tier
+        setupSegmented('packageGroup', btn => { state.packageTier = btn.dataset.tier; runEngine(); });
+        // Scenario
+        setupSegmented('scenarioGroup', btn => { state.scenario = btn.dataset.scenario; runEngine(); });
+        // Infra
+        setupSegmented('infraGroup', btn => { state.infra = btn.dataset.infra; runEngine(); });
+
+        // ==================== SLIDER HANDLERS ====================
+        $('budgetSlider').addEventListener('input', function() {
+            state.budget = parseInt(this.value);
+            $('budgetDisplay').innerText = fmtC(state.budget);
+            runEngine();
+        });
+        $('lifespanSlider').addEventListener('input', function() {
+            state.clientLifespanSessions = parseInt(this.value);
+            $('lifespanVal').innerText = state.clientLifespanSessions + ' Session' + (state.clientLifespanSessions > 1 ? 's' : '');
+            runEngine();
+        });
+
+        // ==================== ZERO-SUM CHANNEL SLIDERS ====================
+        function buildChannelSliders() {
+            const container = $('channelSliders');
+            const channels = ['seo', 'ads', 'social'];
+            const labels = { seo: 'SEO', ads: 'Paid Search', social: 'Social' };
+            container.innerHTML = channels.map(ch => `
+            <div>
+              <div class="flex justify-between items-center mb-0.5">
+                <span class="text-[13px] font-medium">${labels[ch]} <span class="text-[11px] text-[var(--text-tertiary)]">(Base CPC: $${CONFIG.cpc[ch].toFixed(2)})</span></span>
+                <span class="text-sm font-mono text-[var(--text-secondary)]">${state.channelMix[ch]}%</span>
+              </div>
+              <input type="range" min="0" max="100" value="${state.channelMix[ch]}" data-channel="${ch}" class="slider-accent channel-slider">
+              <div class="flex justify-between text-[10px] text-[var(--text-tertiary)] mt-0.5 px-1">
+                <span>${fmtC(state.budget * state.channelMix[ch] / 100)} alloc</span>
+                <span id="traffic${ch.charAt(0).toUpperCase()+ch.slice(1)}">0 clicks</span>
+              </div>
+            </div>
+          `).join('');
+            container.querySelectorAll('.channel-slider').forEach(slider => {
+                slider.addEventListener('input', function() {
+                    const ch = this.dataset.channel;
+                    const newVal = Math.round(parseInt(this.value));
+                    const others = channels.filter(c => c !== ch);
+                    const remaining = 100 - newVal;
+                    const currentOthersSum = others.reduce((s, c) => s + state.channelMix[c], 0);
+                    state.channelMix[ch] = newVal;
+                    if (currentOthersSum === 0) {
+                        others.forEach(c => state.channelMix[c] = Math.round(remaining / others.length));
+                    } else {
+                        others.forEach(c => state.channelMix[c] = Math.round((state.channelMix[c] / currentOthersSum) * remaining));
+                    }
+                    let total = channels.reduce((s, c) => s + state.channelMix[c], 0);
+                    if (total !== 100 && others.length > 0) {
+                        state.channelMix[others[others.length - 1]] += (100 - total);
+                    }
+                    buildChannelSliders();
+                    runEngine();
+                });
+            });
+        }
+        buildChannelSliders();
+
+        // ==================== AI INTAKE TOGGLE ====================
+        $('aiIntakeToggle').addEventListener('change', function() {
+            state.aiIntakeEnabled = this.checked;
+            $('aiToggleBg').style.backgroundColor = this.checked ? 'var(--success)' : 'rgba(118,118,128,0.5)';
+            $('aiToggleDot').style.transform = this.checked ? 'translateX(20px)' : 'translateX(0)';
+            runEngine();
+        });
+
+        // ==================== MAIN ENGINE ====================
+        function computeMFM() {
+            const mfm_v = state.niche === 'burnout' ? 9 : state.niche === 'executive' ? 8 : state.niche === 'generalist' ? 5 : 7;
+            const mfm_m = state.packageTier === 'ceiling' ? 10 : state.packageTier === 'mid' ? 6 : 3;
+            const mfm_n = 8;
+            const mfm_l = state.packageTier === 'floor' ? 9 : state.packageTier === 'mid' ? 6 : 3;
+            const mfm_s = state.infra === 'ecommerce' ? 10 : state.infra === 'agency' ? 6 : 3;
+            const mfm_e = state.infra === 'freelance' ? 9 : state.infra === 'agency' ? 6 : 3;
+            const mfm_f = state.niche === 'executive' ? 8 : state.niche === 'generalist' ? 6 : 7;
+            const mfm_a = state.aiIntakeEnabled ? 8 : 3;
+            const weights = { V: 2.0, M: 1.8, N: 1.4, L: 1.4, S: 1.4, E: 1.4, F: 1.1, A: 0.9 };
+            const raw = Math.pow(mfm_v, weights.V) * Math.pow(mfm_m, weights.M) * Math.pow(mfm_n, weights.N) * Math.pow(mfm_l, weights.L) * Math.pow(mfm_s, weights.S) * Math.pow(mfm_e, weights.E) * Math.pow(mfm_f, weights.F) * Math.pow(mfm_a, weights.A);
+            const norm = Math.pow(raw, 1 / 11.4);
+            const c_avg = 2.8;
+            const marketFitMultiplier = (norm / 7.0) * (c_avg / 3);
+            return { mfm_raw: raw, mfm_norm: norm, marketFitMultiplier, scores: { V: mfm_v, M: mfm_m, N: mfm_n, L: mfm_l, S: mfm_s, E: mfm_e, F: mfm_f, A: mfm_a } };
+        }
+
+        function runEngine() {
+            const pkg = CONSTANTS.pricing[state.packageTier];
+            const scenario = CONSTANTS.conversion[state.scenario];
+            const ltv = pkg.price * state.clientLifespanSessions;
+
+            const budgetSeo = state.budget * (state.channelMix.seo / 100);
+            const budgetAds = state.budget * (state.channelMix.ads / 100);
+            const budgetSocial = state.budget * (state.channelMix.social / 100);
+
+            const cpcMod = scenario.cpc_mod;
+            const trafficSeo = budgetSeo > 0 ? budgetSeo / (CONFIG.cpc.seo * cpcMod) : 0;
+            const trafficAds = budgetAds > 0 ? budgetAds / (CONFIG.cpc.ads * cpcMod) : 0;
+            const trafficSocial = budgetSocial > 0 ? budgetSocial / (CONFIG.cpc.social * cpcMod) : 0;
+            const totalTraffic = Math.floor(trafficSeo + trafficAds + trafficSocial);
+            const blendedCPC = totalTraffic > 0 ? state.budget / totalTraffic : 0;
+
+            const aiMultiplier = state.aiIntakeEnabled ? (100 - CONSTANTS.humanPrefPct) / 100 : 1.0;
+            const mfm = computeMFM();
+            const baseConv = scenario.conv * aiMultiplier * mfm.marketFitMultiplier;
+
+            const leads = Math.floor(totalTraffic * (baseConv / 100));
+            const mqls = Math.floor(leads * CONSTANTS.funnel.lead_to_mql);
+            const meetings = Math.floor(mqls * CONSTANTS.funnel.mql_to_meeting);
+            const clients = Math.floor(meetings * CONSTANTS.funnel.meeting_to_close);
+
+            const grossRev = clients * ltv;
+            const cac = clients > 0 ? state.budget / clients : state.budget;
+            const ltvCac = cac > 0 ? ltv / cac : 0;
+
+            const capexRange = CONFIG.webCapexRanges[state.infra];
+            const avgCapex = (capexRange[0] + capexRange[1]) / 2;
+            const amortizedCapex = avgCapex / 12;
+            const monthlyOpex = CONFIG.webOpex[state.infra];
+            const totalCosts = state.budget + monthlyOpex + amortizedCapex;
+            const trueNet = grossRev - totalCosts;
+
+            // Gates
+            const gates = [];
+            if (mfm.marketFitMultiplier >= 1.0) gates.push({ id: 'MFM', status: 'PASS', msg: `Market-Fit Index: ${mfm.mfm_norm.toFixed(1)}/10. Offer viability verified.`, color: 'success' });
+            else gates.push({ id: 'MFM', status: 'WARN', msg: `Market-Fit Index: ${mfm.mfm_norm.toFixed(1)}/10. Offer dynamics sub-optimal.`, color: 'warn' });
+            if (ltvCac < CONSTANTS.targetLtvCac) gates.push({ id: 'LTV_CAC', status: 'FAIL', msg: `LTV:CAC ratio (${ltvCac.toFixed(1)}x) violates > ${CONSTANTS.targetLtvCac}:1 rule.`, color: 'danger' });
+            if (clients > CONFIG.soloCeiling && state.infra === 'freelance') gates.push({ id: 'THROUGHPUT', status: 'WARN', msg: `Throughput exceeded. ${clients} clients > ${CONFIG.soloCeiling} ceiling. Scale infra required.`, color: 'warn' });
+            if (trueNet < 0) gates.push({ id: 'ECON', status: 'FAIL', msg: 'Capital burn detected. True Net is negative.', color: 'danger' });
+            if (!gates.some(g => g.status === 'FAIL')) gates.push({ id: 'SYS_OK', status: 'PASS', msg: 'System execution nominal. Yield verified.', color: 'success' });
+
+            // Update UI
+            $('trueNetDisplay').innerText = fmtC(trueNet);
+            $('trueNetDisplay').style.color = trueNet >= 0 ? 'var(--text-main)' : 'var(--danger)';
+            $('grossRevDisplay').innerText = fmtC(grossRev);
+            $('acqBudgetDisplay').innerText = '-' + fmtC(state.budget);
+            $('infraOpexDisplay').innerText = '-' + fmtC(monthlyOpex);
+            $('capexAmortDisplay').innerText = '-' + fmtC(amortizedCapex);
+            $('ltvDisplay').innerText = fmtC(ltv);
+            $('cacDisplay').innerText = fmtC(cac);
+            $('ltvCacDisplay').innerText = ltvCac.toFixed(2) + 'x';
+            $('ltvCacDisplay').style.color = ltvCac >= CONSTANTS.targetLtvCac ? 'var(--success)' : 'var(--danger)';
+            $('clientsDisplay').innerText = clients;
+            $('blendedCpcDisplay').innerText = '$' + blendedCPC.toFixed(2);
+            $('mfmDisplay').innerText = mfm.marketFitMultiplier.toFixed(2) + 'x';
+            $('effConvDisplay').innerText = baseConv.toFixed(2) + '%';
+            $('amortCapexDisplay').innerText = fmtC(amortizedCapex) + '/mo';
+            $('monthlyOpexDisplay').innerText = fmtC(monthlyOpex) + '/mo';
+
+            ['seo', 'ads', 'social'].forEach(ch => {
+                const el = document.getElementById('traffic' + ch.charAt(0).toUpperCase() + ch.slice(1));
+                if (el) el.innerText = fmtN(Math.floor(ch === 'seo' ? trafficSeo : ch === 'ads' ? trafficAds : trafficSocial)) + ' clicks';
+            });
+
+            // System gates
+            const gatesContainer = $('systemGates');
+            gatesContainer.innerHTML = '<span class="text-[11px] uppercase tracking-wider font-semibold text-[var(--text-secondary)] block mb-2">System Diagnostics</span>' + gates.map(g => `<div class="flex items-center gap-2.5 mt-1"><span class="w-2 h-2 rounded-full" style="background:var(--${g.color})"></span><span class="text-[12px] font-medium">${g.msg}</span></div>`).join('');
+
+            // Pipeline chart
+            const pipelineData = [
+                { label: 'Traffic', val: totalTraffic, color: '#3A3A3C' },
+                { label: 'Leads', val: leads, color: '#48484A', ratio: baseConv.toFixed(2) + '%' },
+                { label: 'MQLs', val: mqls, color: '#636366', ratio: (CONSTANTS.funnel.lead_to_mql * 100).toFixed(0) + '%' },
+                { label: 'Meetings', val: meetings, color: '#8E8E93', ratio: (CONSTANTS.funnel.mql_to_meeting * 100).toFixed(0) + '%' },
+                { label: 'Clients', val: clients, color: 'var(--accent)', ratio: (CONSTANTS.funnel.meeting_to_close * 100).toFixed(0) + '%' },
+            ];
+            const maxVal = Math.max(...pipelineData.map(d => d.val), 1);
+            const chartContainer = $('pipelineChart');
+            chartContainer.innerHTML = pipelineData.map(d => {
+                const h = Math.max(4, (Math.log10(d.val + 1) / Math.log10(maxVal + 1)) * 100);
+                return `<div class="flex-1 flex flex-col items-center justify-end h-full">
+              <span class="text-sm md:text-base font-bold font-mono mb-2" style="color:${d.color==='var(--accent)'?'var(--text-main)':d.color}">${fmtN(d.val)}</span>
+              <div class="w-full pipeline-bar" style="height:${h}%;background:${d.color==='var(--accent)'?'linear-gradient(135deg, #E2FF3D 0%, #9DFF00 100%)':d.color};"></div>
+              <div class="mt-3 text-center">
+                <p class="text-[10px] uppercase font-semibold tracking-wider text-[var(--text-tertiary)]">${d.label}</p>
+                ${d.ratio ? `<p class="text-[9px] text-[var(--text-tertiary)] mt-0.5">${d.ratio}</p>` : ''}
+              </div>
+            </div>`;
+            }).join('');
+
+            // Update forensic data
+            $('baselineInc').innerText = '$' + CONFIG.medianIncomeSingle.toLocaleString();
+            $('growthBand').innerText = CONFIG.jobGrowth.recent + '% to +' + CONFIG.jobGrowth.forecast + '%';
+            $('contradictionsCount').innerText = '3';
+            $('svLife').innerText = (CONFIG.searchVolumes.life_coach / 1000).toFixed(1) + 'k';
+            $('svCareer').innerText = (CONFIG.searchVolumes.career_coach / 1000).toFixed(1) + 'k';
+            $('svNear').innerText = (CONFIG.searchVolumes.near_me / 1000).toFixed(1) + 'k';
+            $('svTrans').innerText = (CONFIG.searchVolumes.transformational / 1000).toFixed(1) + 'k';
+            $('cpcConsumer').innerText = '$' + CONFIG.cpc.ads.toFixed(2);
+            $('cpcBusiness').innerText = '$4.90';
+            $('cpcSearch').innerText = '$' + CONFIG.cpc.seo.toFixed(2);
+            $('coachTotal').innerText = CONFIG.coaching.totalUSCoaches.toLocaleString();
+            $('ptBiz').innerText = CONFIG.smallBiz.ptBusinesses.toLocaleString();
+            $('whitespace').innerText = CONFIG.whitespace;
+            $('creatorLow').innerText = CONFIG.creator.low + '%';
+            $('creatorMid').innerText = CONFIG.creator.mid + '%';
+            $('creatorHigh').innerText = CONFIG.creator.high + '%';
+            $('agenciesList').innerText = CONFIG.agencies.join(', ');
+            $('venuesList').innerText = CONFIG.venues;
+            $('webCosts').innerText = 'Freelance ' + CONFIG.webCosts.freelance + ', Agency ' + CONFIG.webCosts.agency + ', Ecom ' + CONFIG.webCosts.ecommerce;
+            $('soloCeiling').innerText = CONFIG.soloCeiling + '/mo';
+            $('billableHours').innerText = CONFIG.billableHrs;
+            $('aiAdoption').innerText = CONFIG.coaching.aiAdoption + '%';
+            $('humanPref').innerText = CONFIG.coaching.humanPref + '%';
+            $('aiMarket').innerText = '$' + CONFIG.coaching.aiMarket + 'B';
+            $('zone1').innerText = CONFIG.microtargeting.zone1;
+            $('zone2').innerText = CONFIG.microtargeting.zone2;
+            $('zone3').innerText = CONFIG.microtargeting.zone3;
+            $('leadTargets').innerText = CONFIG.leadTargets.join(', ');
+        }
+
+        // ==================== AI INSIGHT ====================
+        let deepseekKey = sessionStorage.getItem('bndr_deepseek_key') || '';
+        if (deepseekKey) $('clearKeyBtn').classList.remove('hidden');
+        $('aiToggleBtn').addEventListener('click', async () => {
+            if (!deepseekKey) {
+                const key = prompt('Enter DeepSeek API key (session only):');
+                if (!key) return;
+                deepseekKey = key;
+                sessionStorage.setItem('bndr_deepseek_key', key);
+                $('clearKeyBtn').classList.remove('hidden');
+            }
+            const box = $('aiInsightBox');
+            box.innerText = 'Requesting insight from DeepSeek...';
+            try {
+                const resp = await fetch('https://api.deepseek.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${deepseekKey}` },
+                    body: JSON.stringify({
+                        model: 'deepseek-chat',
+                        messages: [
+                            { role: 'system', content: 'You are a forensic revenue intelligence. Base responses ONLY on the provided schema.' },
+                            { role: 'user', content: `Phoenix coaching forensics: CPC SEO $${CONFIG.cpc.seo}, social $${CONFIG.cpc.social}, ads $${CONFIG.cpc.ads}. ${CONFIG.coaching.totalUSCoaches} US coaches. AI adoption ${CONFIG.coaching.aiAdoption}%. Human preference ${CONFIG.coaching.humanPref}%. Suggest one strategic pivot.` }
+                        ],
+                        max_tokens: 200
+                    })
+                });
+                if (!resp.ok) throw new Error('API error ' + resp.status);
+                const data = await resp.json();
+                box.innerText = data.choices?.[0]?.message?.content || 'No insight returned.';
+            } catch (err) { box.innerText = 'Error: ' + err.message; }
+        });
+        $('clearKeyBtn').addEventListener('click', () => {
+            sessionStorage.removeItem('bndr_deepseek_key');
+            deepseekKey = '';
+            $('aiInsightBox').innerText = 'API key cleared. AI insights disabled.';
+            $('clearKeyBtn').classList.add('hidden');
+        });
+
+        // ==================== THA SHYT DECISION ENGINE ====================
+        const VALID_DOMAINS = ['ai_workflow', 'role_prompting', 'team_training', 'intake_qa', 'impl_cleanup', 'sops', 'prompt_library'];
+        const VAR_NAMES = ['V', 'M', 'N', 'L', 'S', 'E', 'F', 'A'];
+        const VAR_WEIGHTS = { V: 2.0, M: 1.8, N: 1.4, L: 1.4, S: 1.4, E: 1.4, F: 1.1, A: 0.9 };
+        const EXP_TOTAL = 11.4;
+        let ideaList = [];
+
+        $('decisionToggleBtn').addEventListener('click', () => $('decision-engine').classList.toggle('open'));
+
+        function gatherIdea() {
+            return {
+                label: $('ideaLabel').value.trim(),
+                domain: $('ideaDomain').value,
+                buyer: $('fieldBuyer').value.trim(),
+                role: $('fieldRole').value.trim(),
+                task: $('fieldTask').value.trim(),
+                outcome: $('fieldOutcome').value.trim(),
+                scores: Object.fromEntries(VAR_NAMES.map(v => [v, Math.min(10, Math.max(1, parseInt($(`score${v}`).value) || 5))])),
+                confidence: Object.fromEntries(VAR_NAMES.map(v => [v, parseInt($(`conf${v}`).value) || 0])),
+                evidence: $('evidenceText').value.trim(),
+            };
+        }
+
+        function validate(idea) {
+            const missing = [];
+            if (!idea.buyer) missing.push('Buyer');
+            if (!idea.role) missing.push('Role/Team');
+            if (!idea.task) missing.push('Recurring Task');
+            if (!idea.outcome) missing.push('Measurable Outcome');
+            if (missing.length) return { valid: false, reason: 'NEEDS INPUT: ' + missing.join(', ') };
+            if (!idea.domain || !VALID_DOMAINS.includes(idea.domain)) return { valid: false, reason: 'INVALID: Outside known capability' };
+            return { valid: true, reason: '' };
+        }
+
+        function compute(idea) {
+            let raw = 1;
+            for (const v of VAR_NAMES) raw *= Math.pow(idea.scores[v], VAR_WEIGHTS[v]);
+            const norm = Math.pow(raw, 1 / EXP_TOTAL);
+            const confVals = VAR_NAMES.map(v => idea.confidence[v]);
+            if (confVals.some(c => c === 0)) return { raw, norm, final: null, cAvg: null, unknown: VAR_NAMES.filter((v, i) => confVals[i] === 0) };
+            const cAvg = confVals.reduce((a, b) => a + b, 0) / VAR_NAMES.length;
+            const final = norm * (cAvg / 3);
+            return { raw, norm, final, cAvg, unknown: [] };
+        }
+
+        function formatResult(item) {
+            const { idea, validation, computed } = item;
+            let out = '';
+            out += `IDEA: ${idea.label || '(unlabeled)'}\n`;
+            out += `VALIDITY: ${validation.valid ? 'VALID' : validation.reason}\n`;
+            if (validation.valid) {
+                out += `BUYER: ${idea.buyer}\nROLE/TEAM: ${idea.role}\nTASK: ${idea.task}\nOUTCOME: ${idea.outcome}\n`;
+                out += `SCORES: ${VAR_NAMES.map(v => v + '=' + idea.scores[v]).join(', ')}\n`;
+                out += `CONFIDENCE: ${VAR_NAMES.map(v => 'C' + v + '=' + idea.confidence[v]).join(', ')}\n`;
+                if (computed.final !== null) {
+                    out += `C_avg: ${computed.cAvg.toFixed(2)}\n`;
+                    out += `THA_SHYT_raw: ${computed.raw.toExponential(3)}\n`;
+                    out += `THA_SHYT_norm: ${computed.norm.toFixed(3)}\n`;
+                    out += `THA_SHYT_final: ${computed.final.toFixed(3)}\n`;
+                } else if (computed.unknown.length) {
+                    out += `NEEDS INPUT: Confidence unknown for ${computed.unknown.map(v => 'C' + v).join(', ')}\n`;
+                }
+            }
+            return out;
+        }
+
+        function renderResults() {
+            const container = $('decisionResults');
+            const status = $('decisionStatus');
+            if (ideaList.length === 0) { container.innerHTML = ''; status.innerText = 'Awaiting input.'; return; }
+            const ranked = ideaList.filter(i => i.validation.valid && i.computed.final !== null)
+                .sort((a, b) => b.computed.final - a.computed.final || b.idea.scores.S - a.idea.scores.S || b.idea.scores.N - a.idea.scores.N || b.idea.scores.V - a.idea.scores.V);
+            let html = '';
+            for (let i = 0; i < ideaList.length; i++) {
+                const item = ideaList[i];
+                const rankIdx = ranked.indexOf(item);
+                const rankStr = rankIdx >= 0 ? '#' + (rankIdx + 1) : (item.validation.valid ? '--' : item.validation.reason.split(':')[0]);
+                html += `<pre class="text-xs font-mono bg-black/30 p-3 rounded-lg whitespace-pre-wrap mb-2 border border-[var(--border)] text-[var(--text-main)]">RANK: ${rankStr}\n${formatResult(item)}</pre>`;
+            }
+            container.innerHTML = html;
+            status.innerText = ideaList.length + ' idea(s) evaluated.';
+        }
+
+        $('scoreIdeaBtn').addEventListener('click', () => {
+            const idea = gatherIdea();
+            ideaList = [{ idea, validation: validate(idea), computed: compute(idea) }];
+            renderResults();
+        });
+        $('addIdeaBtn').addEventListener('click', () => {
+            const idea = gatherIdea();
+            ideaList.push({ idea, validation: validate(idea), computed: compute(idea) });
+            renderResults();
+        });
+        $('clearIdeasBtn').addEventListener('click', () => {
+            ideaList = [];
+            ['ideaLabel', 'fieldBuyer', 'fieldRole', 'fieldTask', 'fieldOutcome', 'evidenceText'].forEach(id => $(id).value = '');
+            renderResults();
+        });
+
+        // ==================== INIT ====================
+        runEngine();
+    </script>
+</body>
+</html>
