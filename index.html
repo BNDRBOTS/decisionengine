@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHX 2026 · Forensic Revenue Engine + THA SHYT</title>
     <meta name="description" content="Zero‑hallucination Phoenix coaching revenue forensics. All data attested from Oct 2025–Apr 2026.">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://api.deepseek.com; img-src 'self' data:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://api.deepseek.com; img-src 'self' data:;">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
     </script>
     <style>
         :root {
@@ -282,7 +280,6 @@
             transition: max-height 0.45s ease, opacity 0.35s ease, margin 0.35s ease;
         }
         #decision-engine.open {
-            max-height: 5000px;
             opacity: 1;
             margin-top: 1.25rem;
         }
@@ -328,18 +325,18 @@
         </header>
 
         <!-- Decision Engine Panel -->
-        <div id="decision-engine" class="glass-panel p-5 md:p-6" role="region" aria-label="THA SHYT Decision Engine">
+        <div id="decision-engine" class="glass-panel p-5 md:p-6" role="region" aria-label="THA SHYT Decision Engine" inert>
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-lg font-bold tracking-tight">THA SHYT Decision Engine</h2>
                 <span class="text-xs text-[var(--text-tertiary)] font-mono">Consulting Offer Wedge Scorer</span>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
                 <div>
-                    <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Idea Label</label>
+                    <label for="ideaLabel" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Idea Label</label>
                     <input type="text" id="ideaLabel" placeholder="e.g. Burnout Coach Intake AI">
                 </div>
                 <div>
-                    <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Domain</label>
+                    <label for="ideaDomain" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Domain</label>
                     <select id="ideaDomain">
                         <option value="">-- Select domain --</option>
                         <option value="ai_workflow">AI workflow architecture</option>
@@ -353,31 +350,32 @@
                 </div>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
-                <div><label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Buyer</label><input type="text" id="fieldBuyer" placeholder="Who pays?"></div>
-                <div><label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Role/Team</label><input type="text" id="fieldRole" placeholder="Who uses it?"></div>
-                <div><label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Task</label><input type="text" id="fieldTask" placeholder="Recurring task"></div>
-                <div><label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Outcome</label><input type="text" id="fieldOutcome" placeholder="Measurable result"></div>
+                <div><label for="fieldBuyer" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Buyer</label><input type="text" id="fieldBuyer" placeholder="Who pays?"></div>
+                <div><label for="fieldRole" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Role/Team</label><input type="text" id="fieldRole" placeholder="Who uses it?"></div>
+                <div><label for="fieldTask" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Task</label><input type="text" id="fieldTask" placeholder="Recurring task"></div>
+                <div><label for="fieldOutcome" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Outcome</label><input type="text" id="fieldOutcome" placeholder="Measurable result"></div>
             </div>
             <div class="score-grid mb-2">
-                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">V - Value</label><input type="number" id="scoreV" value="5" min="1" max="10"></div>
-                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">M - Money</label><input type="number" id="scoreM" value="5" min="1" max="10"></div>
-                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">N - Now</label><input type="number" id="scoreN" value="5" min="1" max="10"></div>
-                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">L - Simplicity</label><input type="number" id="scoreL" value="5" min="1" max="10"></div>
-                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">S - Scale</label><input type="number" id="scoreS" value="5" min="1" max="10"></div>
-                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">E - Ease</label><input type="number" id="scoreE" value="5" min="1" max="10"></div>
-                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">F - Fun</label><input type="number" id="scoreF" value="5" min="1" max="10"></div>
-                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">A - Automation</label><input type="number" id="scoreA" value="5" min="1" max="10"></div>
+                <div><label for="scoreV" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">V - Value</label><input type="number" id="scoreV" value="5" min="1" max="10"></div>
+                <div><label for="scoreM" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">M - Money</label><input type="number" id="scoreM" value="5" min="1" max="10"></div>
+                <div><label for="scoreN" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">N - Now</label><input type="number" id="scoreN" value="5" min="1" max="10"></div>
+                <div><label for="scoreL" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">L - Simplicity</label><input type="number" id="scoreL" value="5" min="1" max="10"></div>
+                <div><label for="scoreS" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">S - Scale</label><input type="number" id="scoreS" value="5" min="1" max="10"></div>
+                <div><label for="scoreE" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">E - Ease</label><input type="number" id="scoreE" value="5" min="1" max="10"></div>
+                <div><label for="scoreF" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">F - Fun</label><input type="number" id="scoreF" value="5" min="1" max="10"></div>
+                <div><label for="scoreA" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">A - Automation</label><input type="number" id="scoreA" value="5" min="1" max="10"></div>
             </div>
             <div class="score-grid mb-3">
-                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CV</label><input type="number" id="confV" value="2" min="0" max="3"></div>
-                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CM</label><input type="number" id="confM" value="2" min="0" max="3"></div>
-                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CN</label><input type="number" id="confN" value="2" min="0" max="3"></div>
-                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CL</label><input type="number" id="confL" value="2" min="0" max="3"></div>
-                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CS</label><input type="number" id="confS" value="2" min="0" max="3"></div>
-                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CE</label><input type="number" id="confE" value="2" min="0" max="3"></div>
-                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CF</label><input type="number" id="confF" value="2" min="0" max="3"></div>
-                <div><label class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CA</label><input type="number" id="confA" value="2" min="0" max="3"></div>
+                <div><label for="confV" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CV</label><input type="number" id="confV" value="2" min="0" max="3"></div>
+                <div><label for="confM" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CM</label><input type="number" id="confM" value="2" min="0" max="3"></div>
+                <div><label for="confN" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CN</label><input type="number" id="confN" value="2" min="0" max="3"></div>
+                <div><label for="confL" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CL</label><input type="number" id="confL" value="2" min="0" max="3"></div>
+                <div><label for="confS" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CS</label><input type="number" id="confS" value="2" min="0" max="3"></div>
+                <div><label for="confE" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CE</label><input type="number" id="confE" value="2" min="0" max="3"></div>
+                <div><label for="confF" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CF</label><input type="number" id="confF" value="2" min="0" max="3"></div>
+                <div><label for="confA" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CA</label><input type="number" id="confA" value="2" min="0" max="3"></div>
             </div>
+            <label for="evidenceText" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Evidence</label>
             <textarea id="evidenceText" rows="2" placeholder="Optional evidence to justify confidence scores" class="mb-3"></textarea>
             <div class="flex flex-wrap gap-2">
                 <button id="scoreIdeaBtn" class="btn-primary">Score Idea</button>
@@ -414,7 +412,7 @@
                     </div>
                     <div>
                         <div class="flex justify-between items-center mb-1.5">
-                            <span class="text-[13px] font-medium">Client Lifespan</span>
+                            <label for="lifespanSlider" class="text-[13px] font-medium">Client Lifespan</label>
                             <span class="text-sm font-bold font-mono" id="lifespanVal">1 Session</span>
                         </div>
                         <input type="range" id="lifespanSlider" min="1" max="24" value="1" class="slider-accent">
@@ -426,7 +424,7 @@
                     <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Capital & Channels</h2>
                     <div>
                         <div class="flex justify-between items-center mb-1.5">
-                            <span class="text-[13px] font-medium">Monthly Acq Budget</span>
+                            <label for="budgetSlider" class="text-[13px] font-medium">Monthly Acq Budget</label>
                             <span class="text-xl font-bold font-mono" style="color:var(--accent)" id="budgetDisplay">$5,000</span>
                         </div>
                         <input type="range" id="budgetSlider" min="500" max="50000" step="500" value="5000" class="slider-accent">
@@ -471,17 +469,17 @@
                             <p class="text-base font-bold font-mono mt-0.5" id="monthlyOpexDisplay">$1,200/mo</p>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center pt-2 border-t border-[var(--border)]">
+                    <label class="flex justify-between items-center pt-2 border-t border-[var(--border)] cursor-pointer">
                         <div>
                             <span class="text-[13px] font-semibold">AI Intake Backend</span>
                             <p class="text-[10px] text-[var(--text-tertiary)] mt-0.5">85% of clients prefer human coaches</p>
                         </div>
-                        <label class="relative inline-block w-11 h-6">
+                        <div class="relative inline-block w-11 h-6 flex-shrink-0">
                             <input type="checkbox" id="aiIntakeToggle" class="sr-only">
-                            <span class="absolute inset-0 rounded-full transition-colors duration-300 cursor-pointer" style="background:rgba(118,118,128,0.5);" id="aiToggleBg"></span>
+                            <span class="absolute inset-0 rounded-full transition-colors duration-300" style="background:rgba(118,118,128,0.5);" id="aiToggleBg"></span>
                             <span class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-300" id="aiToggleDot"></span>
-                        </label>
-                    </div>
+                        </div>
+                    </label>
                 </div>
 
                 <!-- Resolved Contradictions + AI -->
@@ -536,7 +534,7 @@
                             <span class="text-[var(--text-tertiary)] border-l border-[var(--border)] pl-3">EFF CONV: <span id="effConvDisplay" class="text-[var(--text-main)]">2.35%</span></span>
                         </div>
                     </div>
-                    <div id="pipelineChart" class="flex items-end justify-between gap-2 h-48">
+                    <div id="pipelineChart" role="img" aria-label="" class="flex items-end justify-between gap-2 h-48">
                         <!-- Injected by JS -->
                     </div>
                 </div>
@@ -568,6 +566,7 @@
     </main>
 
     <script>
+    (() => {
         // ==================== CONFIG (perishable data) ====================
         const CONFIG = {
             lastUpdated: '2026-04-15',
@@ -657,25 +656,30 @@
             runEngine();
         });
 
-        // ==================== ZERO-SUM CHANNEL SLIDERS ====================
-        function buildChannelSliders() {
+        // ==================== CHANNEL SLIDERS (ZERO‑SUM, PERSISTENT) ====================
+        function createChannelSliders() {
             const container = $('channelSliders');
             const channels = ['seo', 'ads', 'social'];
             const labels = { seo: 'SEO', ads: 'Paid Search', social: 'Social' };
-            container.innerHTML = channels.map(ch => `
-            <div>
-              <div class="flex justify-between items-center mb-0.5">
-                <span class="text-[13px] font-medium">${labels[ch]} <span class="text-[11px] text-[var(--text-tertiary)]">(Base CPC: $${CONFIG.cpc[ch].toFixed(2)})</span></span>
-                <span class="text-sm font-mono text-[var(--text-secondary)]">${state.channelMix[ch]}%</span>
-              </div>
-              <input type="range" min="0" max="100" value="${state.channelMix[ch]}" data-channel="${ch}" class="slider-accent channel-slider">
-              <div class="flex justify-between text-[10px] text-[var(--text-tertiary)] mt-0.5 px-1">
-                <span>${fmtC(state.budget * state.channelMix[ch] / 100)} alloc</span>
-                <span id="traffic${ch.charAt(0).toUpperCase()+ch.slice(1)}">0 clicks</span>
-              </div>
-            </div>
-          `).join('');
-            container.querySelectorAll('.channel-slider').forEach(slider => {
+            let html = '';
+            channels.forEach(ch => {
+                html += `
+                <div>
+                  <div class="flex justify-between items-center mb-0.5">
+                    <label for="channel-${ch}" class="text-[13px] font-medium">${labels[ch]} <span class="text-[11px] text-[var(--text-tertiary)]">(Base CPC: $${CONFIG.cpc[ch].toFixed(2)})</span></label>
+                    <span class="text-sm font-mono text-[var(--text-secondary)]" id="chPct-${ch}">${state.channelMix[ch]}%</span>
+                  </div>
+                  <input type="range" id="channel-${ch}" min="0" max="100" value="${state.channelMix[ch]}" data-channel="${ch}" class="slider-accent channel-slider">
+                  <div class="flex justify-between text-[10px] text-[var(--text-tertiary)] mt-0.5 px-1">
+                    <span id="chAlloc-${ch}">${fmtC(state.budget * state.channelMix[ch] / 100)} alloc</span>
+                    <span id="traffic${ch.charAt(0).toUpperCase()+ch.slice(1)}">0 clicks</span>
+                  </div>
+                </div>`;
+            });
+            container.innerHTML = html;
+
+            // Attach listeners
+            document.querySelectorAll('.channel-slider').forEach(slider => {
                 slider.addEventListener('input', function() {
                     const ch = this.dataset.channel;
                     const newVal = Math.round(parseInt(this.value));
@@ -692,12 +696,20 @@
                     if (total !== 100 && others.length > 0) {
                         state.channelMix[others[others.length - 1]] += (100 - total);
                     }
-                    buildChannelSliders();
+                    // Update all sliders and labels
+                    channels.forEach(c => {
+                        const sliderEl = document.getElementById(`channel-${c}`);
+                        if (sliderEl) sliderEl.value = state.channelMix[c];
+                        const pctSpan = document.getElementById(`chPct-${c}`);
+                        if (pctSpan) pctSpan.textContent = state.channelMix[c] + '%';
+                        const allocSpan = document.getElementById(`chAlloc-${c}`);
+                        if (allocSpan) allocSpan.textContent = fmtC(state.budget * state.channelMix[c] / 100) + ' alloc';
+                    });
                     runEngine();
                 });
             });
         }
-        buildChannelSliders();
+        createChannelSliders();
 
         // ==================== AI INTAKE TOGGLE ====================
         $('aiIntakeToggle').addEventListener('change', function() {
@@ -818,6 +830,7 @@
               </div>
             </div>`;
             }).join('');
+            chartContainer.setAttribute('aria-label', `Funnel: ${fmtN(totalTraffic)} traffic → ${fmtN(leads)} leads → ${fmtN(mqls)} MQLs → ${fmtN(meetings)} meetings → ${fmtN(clients)} clients`);
 
             // Update forensic data
             $('baselineInc').innerText = '$' + CONFIG.medianIncomeSingle.toLocaleString();
@@ -876,7 +889,17 @@
                         max_tokens: 200
                     })
                 });
-                if (!resp.ok) throw new Error('API error ' + resp.status);
+                if (!resp.ok) {
+                    if (resp.status === 401 || resp.status === 403) {
+                        box.innerText = "Invalid API key. Click 'Clear API key' and re‑enter a valid key.";
+                        sessionStorage.removeItem('bndr_deepseek_key');
+                        deepseekKey = '';
+                        $('clearKeyBtn').classList.remove('hidden');
+                    } else {
+                        box.innerText = 'Error: ' + resp.status;
+                    }
+                    return;
+                }
                 const data = await resp.json();
                 box.innerText = data.choices?.[0]?.message?.content || 'No insight returned.';
             } catch (err) { box.innerText = 'Error: ' + err.message; }
@@ -895,7 +918,34 @@
         const EXP_TOTAL = 11.4;
         let ideaList = [];
 
-        $('decisionToggleBtn').addEventListener('click', () => $('decision-engine').classList.toggle('open'));
+        function toggleDecisionEngine() {
+            const panel = $('decision-engine');
+            if (panel.classList.contains('open')) {
+                // Closing: measure, force to 0 via rAF
+                panel.style.maxHeight = panel.scrollHeight + 'px';
+                requestAnimationFrame(() => {
+                    panel.style.maxHeight = '0px';
+                });
+                panel.classList.remove('open');
+                panel.setAttribute('inert', '');
+                const onTransitionEnd = () => {
+                    panel.style.maxHeight = '';
+                    panel.removeEventListener('transitionend', onTransitionEnd);
+                };
+                panel.addEventListener('transitionend', onTransitionEnd);
+            } else {
+                // Opening: set to scrollHeight, then remove constraint after transition
+                panel.style.maxHeight = panel.scrollHeight + 'px';
+                panel.classList.add('open');
+                panel.removeAttribute('inert');
+                const onTransitionEnd = () => {
+                    panel.style.maxHeight = 'none';
+                    panel.removeEventListener('transitionend', onTransitionEnd);
+                };
+                panel.addEventListener('transitionend', onTransitionEnd);
+            }
+        }
+        $('decisionToggleBtn').addEventListener('click', toggleDecisionEngine);
 
         function gatherIdea() {
             return {
@@ -989,6 +1039,7 @@
 
         // ==================== INIT ====================
         runEngine();
+    })();
     </script>
 </body>
 </html>
