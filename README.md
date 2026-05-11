@@ -1,107 +1,69 @@
-# PHX 2026 Forensic Revenue Engine + THA SHYT Decision Engine
+# PHX 2026 · Forensic Revenue Engine + THA SHYT
 
-A production‑grade, zero‑hallucination dashboard for coaching revenue forensics and consulting offer wedge scoring. Built for GitHub Pages with no backend, fully client‑side.
+A zero‑hallucination revenue modeling tool for Phoenix‑based coaching businesses.  
+Built by [BNDR LLC](https://bndrllc.com).
 
----
+## Overview
 
-## What this tool does
+The Revenue Engine projects monthly net profit, LTV, CAC, and funnel metrics using real‑world market data (CPCs, search volumes, adoption rates).  
+Coaches and consultants can adjust pricing, acquisition budget, channel mix, infrastructure, and client lifespan to instantly see bottom‑line impact.  
 
-- **Forensic Revenue Engine** – Simulates a coaching business in Phoenix using attested 2025‑2026 data. You adjust budget, pricing, channels, niche, infrastructure, and it calculates traffic, leads, clients, revenue, costs, and system health checks.
-- **THA SHYT Decision Engine** – Scores consulting offer ideas based on eight weighted variables and confidence ratings. It prints a ranked report of your best consulting wedges.
+The integrated **THA SHYT Decision Engine** scores consulting offers on 8 dimensions (Value, Money, Now, Simplicity, Scale, Ease, Fun, Automation), weighted by confidence, producing a normalized Market‑Fit Multiplier.
 
-Both tools share the same design language but operate completely independently.
+## Features
 
----
+- **Live P&L breakdown** – gross revenue, acquisition, opex, capex, true net.  
+- **Funnel topology** – traffic → leads → MQLs → meetings → clients, with conversion ratios.  
+- **Zero‑sum channel sliders** – auto‑balance SEO, ads, social spend while updating traffic forecasts.  
+- **AI Intake simulation** – toggles between human‑preferred (85%) and automated intake impact on conversion.  
+- **Market snapshot** – Phoenix income baseline, job growth, CPC assumptions.  
+- **Onboarding walkthrough** and mandatory disclaimer before first use.  
+- **Accessible** – programmatic labels, ARIA attributes, inert panels.
 
-## How to use the Revenue Engine
+## Tech Stack
 
-### Left column controls
-1. **Pricing Model**
-   - `Service Niche` – Pick the coaching audience (Burnout, Executive, Generalist, Health). Changes the market‑fit multiplier.
-   - `Package Tier` – Select the pricing level. Floor ($150), Mid ($1,500), Ceiling ($15,000).
-   - `Client Lifespan` – Slide to set how many sessions/courses a client buys. The Client LTV updates live.
+- Plain HTML, CSS (Tailwind via CDN), vanilla JavaScript  
+- No frameworks, no build step  
+- Optional DeepSeek API integration for AI‑powered strategic insights  
 
-2. **Capital & Channels**
-   - `Monthly Acq Budget` – Slide to set your total monthly ad/SEO spend.
-   - `Conversion Scenario` – Conservative (1.87 %), Expected (2.35 %), or Aggressive (5.31 %). Changes the base conversion rate and cost‑per‑click modifier.
-   - `Channel Distribution` – Three sliders (SEO, Paid Search, Social) that always add up to 100 %. Sliding one auto‑adjusts the others proportionally.
-   - Below each slider you see the actual budget allocation and estimated clicks.
+## Quick Start
 
-3. **Infrastructure & AI**
-   - `Digital Infra` – Freelance, Agency, or Ecommerce. Determines monthly hosting/development costs (opex + amortised capex).
-   - `AI Intake Backend` – Toggle on if you use an AI booking bot. It applies a penalty because 85 % of clients still prefer human coaches.
+1. Clone or download the repository.  
+2. Open `index.html` in any modern browser.  
+3. Agree to the disclaimer, then click through the onboarding guide.  
+4. Adjust sliders and segmented controls – results update immediately.
 
-4. **Resolved Contradictions**
-   - Static data showing the attested income baseline, job growth band, and active data disputes.
+## Configuration
 
-5. **AI Insight (DeepSeek)**
-   - Click to enter a session‑only API key. Then click `AI Insight` to ask DeepSeek for a strategic pivot based on the live engine numbers. Key is never stored permanently.
+All market data resides in the `CONFIG` object inside the `<script>` tag.  
+You can update CPCs, search volumes, infrastructure costs, etc., without touching logic.  
+```js
+const CONFIG = {
+  cpc: { seo: 2.96, social: 1.50, ads: 6.40 },
+  coaching: { humanPref: 85, soloCeiling: 5 },
+  // ...
+};
+```
 
-### Right column results
-- **True Net P&L** – Big hero number showing monthly profit after budget, infrastructure, and amortised capex. Turns red if negative.
-- **KPI cards** – Client LTV, blended CAC, LTV:CAC ratio, and clients per month.
-- **Funnel Topology** – Visual bar chart of Traffic → Leads → MQLs → Meetings → Clients. Hover numbers update instantly.
-- **Forensic data cards** – Local market data (search volumes, CPC, competitor counts, agency lists, micro‑targeting zones). All numbers come from the `CONFIG` object and can be updated easily.
-- **System Diagnostics** – Shows pass/warn/fail gates for market‑fit, LTV:CAC, throughput ceiling, and profitability.
+## DeepSeek AI Insights
 
----
+- Click the **AI Insight** button to get a strategic recommendation from DeepSeek’s API.  
+- Requires a temporary API key (stored in sessionStorage only).  
+- On 401/403, the key is automatically cleared and a prompt to re‑enter appears.
 
-## How to use the THA SHYT Decision Engine
+## Onboarding & Disclaimer
 
-Click the `Decision Engine` button in the top header. The panel slides open.
+First‑time visitors must accept a legal disclaimer.  
+An optional step‑by‑step tour explains each control panel; users can skip at any time.
 
-### Scoring a single idea
-1. **Fill in the four required fields:**
-   - *Buyer* – Who pays (e.g., “Corporate HR director”).
-   - *Role/Team* – Who uses the deliverable (e.g., “Internal L&D team”).
-   - *Task* – The recurring work (e.g., “weekly coaching intake review”).
-   - *Outcome* – How you measure success (e.g., “30% fewer no‑shows”).
+## Legal Disclaimer
 
-2. **Optional evidence** – Paste any notes or data that backs up your scores.
+This tool is for informational and educational purposes only.  
+It does **not** constitute financial, legal, or business advice.  
+BNDR LLC assumes no liability for decisions made based on its output.  
+By using the tool, you accept all associated risks.
 
-3. **Set the eight variable scores (1–10)** and **eight confidence ratings (0–3, where 0 = unknown)**.
-   - V = Value, M = Money, N = Now, L = Simplicity, S = Scale, E = Ease, F = Fun, A = Automation.
-   - Confidence ratings judge how sure you are about each score.
+## Author
 
-4. Click **Score Idea**. The system checks if the four fields are complete and if the domain is valid. If anything is missing, it prints `NEEDS INPUT`. If the domain is out of scope, it prints `INVALID`. If valid, it calculates:
-   - Raw score, normalised score, and final confidence‑adjusted score.
-
-5. The result appears in a formatted block showing the score breakdown.
-
-### Building a ranked list
-- Click **Add to List** after scoring to append the idea.
-- The list ranks valid ideas by `THA_SHYT_final` (highest first). Ties are broken by Scale, then Now, then Value.
-- Click **Clear All** to reset the list and clear all input fields.
-
----
-
-## How to update the data
-
-All perishable numbers live in a single `CONFIG` object at the top of the script. To refresh the data:
-
-1. Open the HTML file.
-2. Find the `CONFIG` block (near line 1100).
-3. Change any value (e.g., `cpc.seo`, `coaching.totalUSCoaches`, etc.).
-4. Update `lastUpdated` to the current date.
-5. The freshness badge will automatically show if data is fresh, stale (>90 days), or expired (>180 days).
-
----
-
-## File structure
-/ (repo root)
-index.html – Main application
-robots.txt – Blocks all crawlers (no‑scrape)
-README.md – This file
-
-
-## Security & privacy
-- No data is sent to any server except the DeepSeek API, and only when you explicitly enter a key.
-- All calculations run inside your browser.
-- `robots.txt` prevents search engines from indexing the page.
-
----
-
-## Support
-For custom consulting offers or integration, contact bndrllc.com.
-
-*BNDR LLC ALL RIGHTS RESERVED*
+**BNDR LLC** – [bndrllc.com](https://bndrllc.com)  
+© 2026 All rights reserved.
