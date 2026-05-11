@@ -324,6 +324,35 @@
             font-family: var(--font-sans);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
         }
+
+        /* Cheat sheet modal */
+        #cheat-sheet-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(6px);
+            display: none;
+        }
+        #cheat-sheet-overlay.active {
+            display: flex;
+        }
+        .cheat-sheet-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body class="p-4 md:p-6 lg:p-8">
@@ -345,8 +374,9 @@
                 </p>
             </div>
             <div class="flex items-center gap-2 flex-wrap">
-                <button id="decisionToggleBtn" class="btn-secondary">Decision Engine</button>
-                <button id="aiToggleBtn" class="btn-secondary">AI Insight</button>
+                <button id="decisionToggleBtn" class="btn-secondary" title="Open/close the THA SHYT decision engine to score consulting ideas">Decision Engine</button>
+                <button id="aiToggleBtn" class="btn-secondary" title="Get an AI-generated strategic insight using your DeepSeek API key">AI Insight</button>
+                <button id="cheatSheetBtn" class="btn-secondary" title="View a quick reference mapping each control to the real-world question it answers">Cheat Sheet</button>
             </div>
         </header>
 
@@ -358,11 +388,11 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
                 <div>
-                    <label for="ideaLabel" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Idea Label</label>
+                    <label for="ideaLabel" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1" title="A short, memorable name for your idea (e.g., Burnout Coach Intake AI)">What do you call this idea?</label>
                     <input type="text" id="ideaLabel" placeholder="e.g. Burnout Coach Intake AI">
                 </div>
                 <div>
-                    <label for="ideaDomain" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Domain</label>
+                    <label for="ideaDomain" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1" title="The capability area this idea falls into (AI workflow, team training, etc.)">Which domain fits best?</label>
                     <select id="ideaDomain">
                         <option value="">-- Select domain --</option>
                         <option value="ai_workflow">AI workflow architecture</option>
@@ -376,37 +406,37 @@
                 </div>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
-                <div><label for="fieldBuyer" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Buyer</label><input type="text" id="fieldBuyer" placeholder="Who pays?"></div>
-                <div><label for="fieldRole" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Role/Team</label><input type="text" id="fieldRole" placeholder="Who uses it?"></div>
-                <div><label for="fieldTask" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Task</label><input type="text" id="fieldTask" placeholder="Recurring task? e.g. weekly check‑in"></div>
-                <div><label for="fieldOutcome" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Outcome</label><input type="text" id="fieldOutcome" placeholder="Measurable result? e.g. 20% burnout drop"></div>
+                <div><label for="fieldBuyer" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1" title="The person or department who pays for this service">Who pays for this?</label><input type="text" id="fieldBuyer" placeholder="e.g. HR Director, CEO"></div>
+                <div><label for="fieldRole" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1" title="The team or role that will use the output (e.g., sales team, coaches)">Who uses it?</label><input type="text" id="fieldRole" placeholder="e.g. Career coaches"></div>
+                <div><label for="fieldTask" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1" title="The specific, recurring task this idea automates or improves (e.g., weekly burnout check‑in)">What task does it do?</label><input type="text" id="fieldTask" placeholder="e.g. weekly check‑in"></div>
+                <div><label for="fieldOutcome" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1" title="A measurable result that tells you it worked (e.g., 20% burnout drop)">What's the measurable result?</label><input type="text" id="fieldOutcome" placeholder="e.g. 20% burnout drop"></div>
             </div>
             <div class="score-grid mb-2">
-                <div><label for="scoreV" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">V - Value</label><input type="number" id="scoreV" value="5" min="1" max="10"></div>
-                <div><label for="scoreM" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">M - Money</label><input type="number" id="scoreM" value="5" min="1" max="10"></div>
-                <div><label for="scoreN" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">N - Now</label><input type="number" id="scoreN" value="5" min="1" max="10"></div>
-                <div><label for="scoreL" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">L - Simplicity</label><input type="number" id="scoreL" value="5" min="1" max="10"></div>
-                <div><label for="scoreS" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">S - Scale</label><input type="number" id="scoreS" value="5" min="1" max="10"></div>
-                <div><label for="scoreE" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">E - Ease</label><input type="number" id="scoreE" value="5" min="1" max="10"></div>
-                <div><label for="scoreF" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">F - Fun</label><input type="number" id="scoreF" value="5" min="1" max="10"></div>
-                <div><label for="scoreA" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">A - Automation</label><input type="number" id="scoreA" value="5" min="1" max="10"></div>
+                <div><label for="scoreV" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5" title="Value: How valuable is this to the buyer? (1‑10)">V - Value</label><input type="number" id="scoreV" value="5" min="1" max="10"></div>
+                <div><label for="scoreM" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5" title="Money: Is someone already spending money on this problem? (1‑10)">M - Money</label><input type="number" id="scoreM" value="5" min="1" max="10"></div>
+                <div><label for="scoreN" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5" title="Now: How urgent is this need right now? (1‑10)">N - Now</label><input type="number" id="scoreN" value="5" min="1" max="10"></div>
+                <div><label for="scoreL" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5" title="Simplicity: How simple is this to explain and deliver? (1‑10)">L - Simplicity</label><input type="number" id="scoreL" value="5" min="1" max="10"></div>
+                <div><label for="scoreS" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5" title="Scale: Can this scale to many clients without breaking? (1‑10)">S - Scale</label><input type="number" id="scoreS" value="5" min="1" max="10"></div>
+                <div><label for="scoreE" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5" title="Ease: How easy is it for the team to adopt? (1‑10)">E - Ease</label><input type="number" id="scoreE" value="5" min="1" max="10"></div>
+                <div><label for="scoreF" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5" title="Fun: Would you enjoy building and selling this? (1‑10)">F - Fun</label><input type="number" id="scoreF" value="5" min="1" max="10"></div>
+                <div><label for="scoreA" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5" title="Automation: How much can you automate delivery? (1‑10)">A - Automation</label><input type="number" id="scoreA" value="5" min="1" max="10"></div>
             </div>
             <div class="score-grid mb-3">
-                <div><label for="confV" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CV</label><input type="number" id="confV" value="2" min="0" max="3"></div>
-                <div><label for="confM" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CM</label><input type="number" id="confM" value="2" min="0" max="3"></div>
-                <div><label for="confN" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CN</label><input type="number" id="confN" value="2" min="0" max="3"></div>
-                <div><label for="confL" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CL</label><input type="number" id="confL" value="2" min="0" max="3"></div>
-                <div><label for="confS" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CS</label><input type="number" id="confS" value="2" min="0" max="3"></div>
-                <div><label for="confE" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CE</label><input type="number" id="confE" value="2" min="0" max="3"></div>
-                <div><label for="confF" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CF</label><input type="number" id="confF" value="2" min="0" max="3"></div>
-                <div><label for="confA" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">CA</label><input type="number" id="confA" value="2" min="0" max="3"></div>
+                <div><label for="confV" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5" title="Confidence in Value score (0=none, 3=certain)">CV</label><input type="number" id="confV" value="2" min="0" max="3"></div>
+                <div><label for="confM" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5" title="Confidence in Money score">CM</label><input type="number" id="confM" value="2" min="0" max="3"></div>
+                <div><label for="confN" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5" title="Confidence in Now score">CN</label><input type="number" id="confN" value="2" min="0" max="3"></div>
+                <div><label for="confL" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5" title="Confidence in Simplicity score">CL</label><input type="number" id="confL" value="2" min="0" max="3"></div>
+                <div><label for="confS" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5" title="Confidence in Scale score">CS</label><input type="number" id="confS" value="2" min="0" max="3"></div>
+                <div><label for="confE" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5" title="Confidence in Ease score">CE</label><input type="number" id="confE" value="2" min="0" max="3"></div>
+                <div><label for="confF" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5" title="Confidence in Fun score">CF</label><input type="number" id="confF" value="2" min="0" max="3"></div>
+                <div><label for="confA" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5" title="Confidence in Automation score">CA</label><input type="number" id="confA" value="2" min="0" max="3"></div>
             </div>
-            <label for="evidenceText" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Evidence</label>
-            <textarea id="evidenceText" rows="2" placeholder="Optional evidence to justify confidence scores" class="mb-3"></textarea>
+            <label for="evidenceText" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1" title="Optional evidence or reasoning behind your confidence levels">Supporting evidence (optional)</label>
+            <textarea id="evidenceText" rows="2" placeholder="e.g. Survey of 50 coaches showed 80% burnout..." class="mb-3"></textarea>
             <div class="flex flex-wrap gap-2">
-                <button id="scoreIdeaBtn" class="btn-primary">Score Idea</button>
-                <button id="addIdeaBtn" class="btn-secondary">Add to List</button>
-                <button id="clearIdeasBtn" class="btn-secondary" style="color:var(--danger);border-color:var(--danger-soft);">Clear All</button>
+                <button id="scoreIdeaBtn" class="btn-primary" title="Score the current idea immediately">Score Idea</button>
+                <button id="addIdeaBtn" class="btn-secondary" title="Add this idea to the ranked list and keep scoring more">Add to List</button>
+                <button id="clearIdeasBtn" class="btn-secondary" style="color:var(--danger);border-color:var(--danger-soft);" title="Remove all scored ideas">Clear All</button>
             </div>
             <div id="decisionResults" class="mt-4 space-y-3"></div>
             <p id="decisionStatus" class="text-xs text-[var(--text-tertiary)] mt-2 font-mono">Awaiting input. Fill all four fields and click Score Idea.</p>
@@ -420,28 +450,28 @@
                 <div class="glass-panel p-5 space-y-4">
                     <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Pricing Model</h2>
                     <div>
-                        <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5">Service Niche</label>
+                        <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5" title="The coaching specialty you want to model">What's your coaching niche?</label>
                         <div id="nicheGroup" class="segmented-control">
-                            <button data-niche="burnout" class="active">Burnout</button>
-                            <button data-niche="executive">Executive</button>
-                            <button data-niche="generalist">Generalist</button>
-                            <button data-niche="health">Health</button>
+                            <button data-niche="burnout" class="active" title="Stress and burnout coaching for professionals">Burnout</button>
+                            <button data-niche="executive" title="Executive leadership and career acceleration">Executive</button>
+                            <button data-niche="generalist" title="General life coaching">Generalist</button>
+                            <button data-niche="health" title="Health and wellness coaching">Health</button>
                         </div>
                     </div>
                     <div>
-                        <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5">Package Tier</label>
+                        <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5" title="The price point per client you typically charge">What's your typical session price?</label>
                         <div id="packageGroup" class="segmented-control">
-                            <button data-tier="floor" class="active">Floor $150</button>
-                            <button data-tier="mid">Mid $1,500</button>
-                            <button data-tier="ceiling">Ceiling $15,000</button>
+                            <button data-tier="floor" class="active" title="Low‑touch, group or automated delivery">Floor $150</button>
+                            <button data-tier="mid" title="Hybrid 1‑on‑1 with some asynchronous support">Mid $1,500</button>
+                            <button data-tier="ceiling" title="Premium, high‑touch 1‑on‑1">Ceiling $15,000</button>
                         </div>
                     </div>
                     <div>
                         <div class="flex justify-between items-center mb-1.5">
-                            <label for="lifespanSlider" class="text-[13px] font-medium">Client Lifespan</label>
+                            <label for="lifespanSlider" class="text-[13px] font-medium" title="How many sessions does a typical client buy from you?">How many sessions do clients buy?</label>
                             <span class="text-sm font-bold font-mono" id="lifespanVal">1 Session</span>
                         </div>
-                        <input type="range" id="lifespanSlider" min="1" max="24" value="1" class="slider-accent">
+                        <input type="range" id="lifespanSlider" min="1" max="24" value="1" class="slider-accent" title="Drag to set typical number of sessions per client (1‑24)">
                     </div>
                 </div>
 
@@ -450,23 +480,23 @@
                     <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Capital & Channels</h2>
                     <div>
                         <div class="flex justify-between items-center mb-1.5">
-                            <label for="budgetSlider" class="text-[13px] font-medium">Monthly Acq Budget</label>
+                            <label for="budgetSlider" class="text-[13px] font-medium" title="Total monthly spend on advertising and lead generation">What's your monthly ad budget?</label>
                             <span class="text-xl font-bold font-mono" style="color:var(--accent)" id="budgetDisplay">$500</span>
                         </div>
-                        <input type="range" id="budgetSlider" min="500" max="50000" step="500" value="500" class="slider-accent">
+                        <input type="range" id="budgetSlider" min="500" max="50000" step="500" value="500" class="slider-accent" title="Drag to set total monthly acquisition spend ($500‑$50,000)">
                     </div>
                     <div>
-                        <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5">Conversion Scenario</label>
+                        <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5" title="Your expectation for how well your ads and content will convert visitors into leads">How optimistic are you about conversions?</label>
                         <div id="scenarioGroup" class="segmented-control">
-                            <button data-scenario="conservative">Conservative</button>
-                            <button data-scenario="expected" class="active">Expected</button>
-                            <button data-scenario="aggressive">Aggressive</button>
+                            <button data-scenario="conservative" title="Lower conversion rates; more budget per lead">Conservative</button>
+                            <button data-scenario="expected" class="active" title="Average industry conversion rates">Expected</button>
+                            <button data-scenario="aggressive" title="Higher conversion rates; less budget per lead">Aggressive</button>
                         </div>
                     </div>
                     <div class="border-t border-[var(--border)] pt-4">
                         <div class="flex justify-between items-end mb-3">
-                            <span class="text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Channel Distribution</span>
-                            <span class="text-xs font-mono text-[var(--text-tertiary)]">Blended CPC: <span id="blendedCpcDisplay">$2.96</span></span>
+                            <span class="text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)]" title="How you split your budget across different marketing channels">Channel Distribution</span>
+                            <span class="text-xs font-mono text-[var(--text-tertiary)]" title="Weighted average cost‑per‑click across all channels">Blended CPC: <span id="blendedCpcDisplay">—</span></span>
                         </div>
                         <div id="channelSliders" class="space-y-3">
                             <!-- Injected by JS -->
@@ -478,27 +508,27 @@
                 <div class="glass-panel p-5 space-y-4">
                     <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Infrastructure & AI</h2>
                     <div>
-                        <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5">Digital Infra</label>
+                        <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5" title="The type of digital operation you run (impacts website and tools costs)">What's your online setup?</label>
                         <div id="infraGroup" class="segmented-control">
-                            <button data-infra="freelance" class="active">Freelance</button>
-                            <button data-infra="agency">Agency</button>
-                            <button data-infra="ecommerce">Ecommerce</button>
+                            <button data-infra="freelance" class="active" title="Simple website, minimal tools, typical for solo coaches">Freelance</button>
+                            <button data-infra="agency" title="Professional website with booking, CRM, and team features">Agency</button>
+                            <button data-infra="ecommerce" title="Full e‑commerce platform with courses, memberships, and automation">Ecommerce</button>
                         </div>
                     </div>
                     <div class="flex gap-4 bg-black/25 rounded-xl border border-[var(--border)] p-3">
                         <div class="flex-1">
                             <span class="text-[10px] uppercase font-semibold tracking-wider text-[var(--text-tertiary)]">Capex (12m Amort)</span>
-                            <p class="text-base font-bold font-mono mt-0.5" id="amortCapexDisplay">$458/mo</p>
+                            <p class="text-base font-bold font-mono mt-0.5" id="amortCapexDisplay">$0/mo</p>
                         </div>
                         <div class="flex-1 border-l border-[var(--border)] pl-4">
                             <span class="text-[10px] uppercase font-semibold tracking-wider text-[var(--text-tertiary)]">Monthly Opex</span>
-                            <p class="text-base font-bold font-mono mt-0.5" id="monthlyOpexDisplay">$300/mo</p>
+                            <p class="text-base font-bold font-mono mt-0.5" id="monthlyOpexDisplay">$0/mo</p>
                         </div>
                     </div>
-                    <label class="flex justify-between items-center pt-2 border-t border-[var(--border)] cursor-pointer">
+                    <label class="flex justify-between items-center pt-2 border-t border-[var(--border)] cursor-pointer" title="If ON, only 15% of leads convert through AI‑only intake (85% prefer talking to a human coach)">
                         <div>
-                            <span class="text-[13px] font-semibold">AI Intake Automation</span>
-                            <p class="text-[10px] text-[var(--text-tertiary)] mt-0.5">Simulates AI‑only intake: only 15% of leads convert (85% prefer human coaches)</p>
+                            <span class="text-[13px] font-semibold">Do you use AI to capture leads?</span>
+                            <p class="text-[10px] text-[var(--text-tertiary)] mt-0.5">Only 15% of leads convert via AI‑only intake (85% prefer human coaches)</p>
                         </div>
                         <div class="relative inline-block w-11 h-6 flex-shrink-0">
                             <input type="checkbox" id="aiIntakeToggle" class="sr-only">
@@ -510,7 +540,7 @@
 
                 <!-- Market Snapshot + AI -->
                 <div class="glass-panel p-5 space-y-3">
-                    <h3 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Market Snapshot</h3>
+                    <h3 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Your local market snapshot</h3>
                     <div class="text-xs font-mono space-y-1.5">
                         <p>Income baseline: <span id="baselineInc" class="font-bold">$73,935</span></p>
                         <p>Job growth band: <span id="growthBand">-0.2% to +1.1%</span></p>
@@ -528,7 +558,7 @@
                         <div id="aiInsightBox" class="mt-1.5 p-3 bg-black/25 rounded-lg text-xs whitespace-pre-line text-[var(--text-tertiary)] leading-relaxed">
                             Enable AI Insights with your API key (session only).
                         </div>
-                        <button id="clearKeyBtn" class="btn-secondary text-xs mt-2 hidden">Clear API key</button>
+                        <button id="clearKeyBtn" class="btn-secondary text-xs mt-2 hidden" title="Remove the stored API key">Clear API key</button>
                     </div>
                 </div>
             </aside>
@@ -544,17 +574,17 @@
                     <div class="md:w-2/5 p-6 flex flex-col justify-center gap-3 bg-black/20 border-t md:border-t-0 md:border-l border-[var(--border)]">
                         <div class="flex flex-col border-b border-[var(--border)] pb-2"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Gross Revenue</span><span class="text-lg font-bold font-mono" id="grossRevDisplay">$0</span></div>
                         <div class="flex flex-col border-b border-[var(--border)] pb-2"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Acq Budget</span><span class="text-lg font-bold font-mono text-[var(--danger)]" id="acqBudgetDisplay">-$500</span></div>
-                        <div class="flex flex-col border-b border-[var(--border)] pb-2"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Infra Opex</span><span class="text-lg font-bold font-mono text-[var(--danger)]" id="infraOpexDisplay">-$300</span></div>
-                        <div class="flex flex-col"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Capex (Amort)</span><span class="text-lg font-bold font-mono text-[var(--danger)]" id="capexAmortDisplay">-$458</span></div>
+                        <div class="flex flex-col border-b border-[var(--border)] pb-2"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Infra Opex</span><span class="text-lg font-bold font-mono text-[var(--danger)]" id="infraOpexDisplay">$0/mo</span></div>
+                        <div class="flex flex-col"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Capex (Amort)</span><span class="text-lg font-bold font-mono text-[var(--danger)]" id="capexAmortDisplay">$0/mo</span></div>
                     </div>
                 </div>
 
                 <!-- KPI Grid -->
                 <div class="result-grid">
-                    <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1">Client LTV</p><p id="ltvDisplay" class="stat-num text-xl">$150</p></div>
-                    <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1">Blended CAC</p><p id="cacDisplay" class="stat-num text-xl">--</p></div>
-                    <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1">LTV:CAC</p><p id="ltvCacDisplay" class="stat-num text-xl" style="color:var(--success)">--</p></div>
-                    <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1">Clients/Mo</p><p id="clientsDisplay" class="stat-num text-xl">--</p></div>
+                    <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1" title="Total revenue from a client over their lifetime">Client LTV</p><p id="ltvDisplay" class="stat-num text-xl">—</p></div>
+                    <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1" title="Average cost to acquire one client">Blended CAC</p><p id="cacDisplay" class="stat-num text-xl">—</p></div>
+                    <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1" title="Lifetime value divided by cost to acquire (target > 3x)">LTV:CAC</p><p id="ltvCacDisplay" class="stat-num text-xl" style="color:var(--success)">—</p></div>
+                    <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1" title="Expected number of new clients per month">Clients/Mo</p><p id="clientsDisplay" class="stat-num text-xl">—</p></div>
                 </div>
 
                 <!-- Pipeline Bar Chart -->
@@ -562,8 +592,8 @@
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Funnel Topology</h3>
                         <div class="flex gap-3 text-xs">
-                            <span class="text-[var(--text-tertiary)]">Market Fit: <span id="mfmDisplay" style="color:var(--accent)">1.00x</span></span>
-                            <span class="text-[var(--text-tertiary)] border-l border-[var(--border)] pl-3">Conv Rate: <span id="effConvDisplay" class="text-[var(--text-main)]">2.35%</span></span>
+                            <span class="text-[var(--text-tertiary)]" title="Market‑Fit Multiplier; values above 1.0 indicate strong alignment">Market Fit: <span id="mfmDisplay" style="color:var(--accent)">—</span></span>
+                            <span class="text-[var(--text-tertiary)] border-l border-[var(--border)] pl-3" title="Effective overall conversion rate from traffic to lead">Conv Rate: <span id="effConvDisplay" class="text-[var(--text-main)]">—</span></span>
                         </div>
                     </div>
                     <div id="pipelineChart" role="img" aria-label="" class="flex items-end justify-between gap-2 h-48">
@@ -600,6 +630,43 @@
             </section>
         </div>
     </main>
+
+    <!-- Cheat Sheet Modal -->
+    <div id="cheat-sheet-overlay">
+        <div class="cheat-sheet-card">
+            <h2 class="text-xl font-bold mb-4">One‑Page Cheat Sheet</h2>
+            <p class="text-sm mb-3 text-[var(--text-secondary)]">Map every control to the real‑world question it answers.</p>
+            <table class="w-full text-xs font-mono border-collapse">
+                <thead>
+                    <tr class="border-b border-[var(--border)] text-[var(--text-secondary)]">
+                        <th class="text-left py-2 pr-4">Control</th>
+                        <th class="text-left py-2">Real‑World Question</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-[var(--border)]"><td class="py-2 pr-4">Niche buttons</td><td class="py-2">What's your coaching niche?</td></tr>
+                    <tr class="border-b border-[var(--border)]"><td class="py-2 pr-4">Package tier</td><td class="py-2">What's your typical session price?</td></tr>
+                    <tr class="border-b border-[var(--border)]"><td class="py-2 pr-4">Client lifespan slider</td><td class="py-2">How many sessions do clients buy?</td></tr>
+                    <tr class="border-b border-[var(--border)]"><td class="py-2 pr-4">Budget slider</td><td class="py-2">What's your monthly ad budget?</td></tr>
+                    <tr class="border-b border-[var(--border)]"><td class="py-2 pr-4">Scenario buttons</td><td class="py-2">How optimistic are you about conversions?</td></tr>
+                    <tr class="border-b border-[var(--border)]"><td class="py-2 pr-4">Channel sliders</td><td class="py-2">What % of budget goes to each channel? (SEO, Ads, Social)</td></tr>
+                    <tr class="border-b border-[var(--border)]"><td class="py-2 pr-4">Infrastructure buttons</td><td class="py-2">What's your online setup? (Freelance, Agency, Ecommerce)</td></tr>
+                    <tr class="border-b border-[var(--border)]"><td class="py-2 pr-4">AI intake toggle</td><td class="py-2">Do you use AI to capture leads?</td></tr>
+                    <tr class="border-b border-[var(--border)]"><td class="py-2 pr-4">Idea label</td><td class="py-2">What do you call this idea?</td></tr>
+                    <tr class="border-b border-[var(--border)]"><td class="py-2 pr-4">Domain dropdown</td><td class="py-2">Which domain fits best?</td></tr>
+                    <tr class="border-b border-[var(--border)]"><td class="py-2 pr-4">Buyer field</td><td class="py-2">Who pays for this?</td></tr>
+                    <tr class="border-b border-[var(--border)]"><td class="py-2 pr-4">Role/Team field</td><td class="py-2">Who uses it?</td></tr>
+                    <tr class="border-b border-[var(--border)]"><td class="py-2 pr-4">Task field</td><td class="py-2">What recurring task does it do?</td></tr>
+                    <tr class="border-b border-[var(--border)]"><td class="py-2 pr-4">Outcome field</td><td class="py-2">What's the measurable result?</td></tr>
+                    <tr class="border-b border-[var(--border)]"><td class="py-2 pr-4">Score sliders (V‑A)</td><td class="py-2">Rate the idea on 8 dimensions (1‑10)</td></tr>
+                    <tr class="border-b border-[var(--border)]"><td class="py-2 pr-4">Confidence sliders</td><td class="py-2">How confident are you in each score? (0‑3)</td></tr>
+                </tbody>
+            </table>
+            <div class="flex justify-end mt-6">
+                <button id="closeCheatSheetBtn" class="btn-primary">Close</button>
+            </div>
+        </div>
+    </div>
 
     <script>
     (() => {
@@ -648,6 +715,7 @@
             aiIntakeEnabled: false,
             niche: 'burnout',
         };
+        let userHasInteracted = false;
 
         // ==================== FRESHNESS BADGE ====================
         (function() {
@@ -667,6 +735,7 @@
                 if (!btn) return;
                 group.querySelectorAll('button').forEach(b => { b.classList.remove('active'); });
                 btn.classList.add('active');
+                userHasInteracted = true;
                 callback(btn);
             });
         }
@@ -682,11 +751,13 @@
 
         // ==================== SLIDER HANDLERS ====================
         $('budgetSlider').addEventListener('input', function() {
+            userHasInteracted = true;
             state.budget = parseInt(this.value);
             $('budgetDisplay').innerText = fmtC(state.budget);
             runEngine();
         });
         $('lifespanSlider').addEventListener('input', function() {
+            userHasInteracted = true;
             state.clientLifespanSessions = parseInt(this.value);
             $('lifespanVal').innerText = state.clientLifespanSessions + ' Session' + (state.clientLifespanSessions > 1 ? 's' : '');
             runEngine();
@@ -702,10 +773,10 @@
                 html += `
                 <div>
                   <div class="flex justify-between items-center mb-0.5">
-                    <label for="channel-${ch}" class="text-[13px] font-medium">${labels[ch]} <span class="text-[11px] text-[var(--text-tertiary)]">(Base CPC: $${CONFIG.cpc[ch].toFixed(2)})</span></label>
+                    <label for="channel-${ch}" class="text-[13px] font-medium" title="${ch === 'seo' ? 'Search engine optimization (organic-like CPC)' : ch === 'ads' ? 'Paid search ads (Google Ads etc.)' : 'Social media ads (Facebook, Instagram, LinkedIn)'}">${labels[ch]} <span class="text-[11px] text-[var(--text-tertiary)]">(Base CPC: $${CONFIG.cpc[ch].toFixed(2)})</span></label>
                     <span class="text-sm font-mono text-[var(--text-secondary)]" id="chPct-${ch}">${state.channelMix[ch]}%</span>
                   </div>
-                  <input type="range" id="channel-${ch}" min="0" max="100" value="${state.channelMix[ch]}" data-channel="${ch}" class="slider-accent channel-slider">
+                  <input type="range" id="channel-${ch}" min="0" max="100" value="${state.channelMix[ch]}" data-channel="${ch}" class="slider-accent channel-slider" title="Drag to split your budget; the other channels adjust automatically">
                   <div class="flex justify-between text-[10px] text-[var(--text-tertiary)] mt-0.5 px-1">
                     <span id="chAlloc-${ch}">${fmtC(state.budget * state.channelMix[ch] / 100)} alloc</span>
                     <span id="traffic${ch.charAt(0).toUpperCase()+ch.slice(1)}">0 clicks</span>
@@ -717,6 +788,7 @@
             // Attach listeners
             document.querySelectorAll('.channel-slider').forEach(slider => {
                 slider.addEventListener('input', function() {
+                    userHasInteracted = true;
                     const ch = this.dataset.channel;
                     const newVal = Math.round(parseInt(this.value));
                     const others = channels.filter(c => c !== ch);
@@ -749,10 +821,22 @@
 
         // ==================== AI INTAKE TOGGLE ====================
         $('aiIntakeToggle').addEventListener('change', function() {
+            userHasInteracted = true;
             state.aiIntakeEnabled = this.checked;
             $('aiToggleBg').style.backgroundColor = this.checked ? 'var(--success)' : 'rgba(118,118,128,0.5)';
             $('aiToggleDot').style.transform = this.checked ? 'translateX(20px)' : 'translateX(0)';
             runEngine();
+        });
+
+        // ==================== CHEAT SHEET ====================
+        $('cheatSheetBtn').addEventListener('click', () => {
+            $('cheat-sheet-overlay').classList.add('active');
+        });
+        $('closeCheatSheetBtn').addEventListener('click', () => {
+            $('cheat-sheet-overlay').classList.remove('active');
+        });
+        $('cheat-sheet-overlay').addEventListener('click', function(e) {
+            if (e.target === this) this.classList.remove('active');
         });
 
         // ==================== MAIN ENGINE ====================
@@ -774,6 +858,29 @@
         }
 
         function runEngine() {
+            if (!userHasInteracted) {
+                // Show zero/placeholder state
+                $('trueNetDisplay').innerText = "$0";
+                $('trueNetDisplay').style.color = 'var(--text-main)';
+                $('grossRevDisplay').innerText = "$0";
+                $('acqBudgetDisplay').innerText = '-' + fmtC(state.budget);
+                $('infraOpexDisplay').innerText = '$0/mo';
+                $('capexAmortDisplay').innerText = '$0/mo';
+                $('ltvDisplay').innerText = '—';
+                $('cacDisplay').innerText = '—';
+                $('ltvCacDisplay').innerText = '—';
+                $('ltvCacDisplay').style.color = 'var(--text-main)';
+                $('clientsDisplay').innerText = '—';
+                $('blendedCpcDisplay').innerText = '—';
+                $('mfmDisplay').innerText = '—';
+                $('effConvDisplay').innerText = '—';
+                $('amortCapexDisplay').innerText = '$0/mo';
+                $('monthlyOpexDisplay').innerText = '$0/mo';
+                $('pipelineChart').innerHTML = '<div class="w-full text-center text-[var(--text-tertiary)] text-xs flex items-center justify-center h-full">Adjust sliders to see funnel</div>';
+                $('systemGates').innerHTML = '';
+                return;
+            }
+
             const pkg = CONSTANTS.pricing[state.packageTier];
             const scenario = CONSTANTS.conversion[state.scenario];
             const ltv = pkg.price * state.clientLifespanSessions;
@@ -963,7 +1070,6 @@
         function toggleDecisionEngine() {
             const panel = $('decision-engine');
             if (panel.classList.contains('open')) {
-                // Closing: measure, force to 0 via rAF
                 panel.style.maxHeight = panel.scrollHeight + 'px';
                 requestAnimationFrame(() => {
                     panel.style.maxHeight = '0px';
@@ -976,7 +1082,6 @@
                 };
                 panel.addEventListener('transitionend', onTransitionEnd);
             } else {
-                // Opening: set to scrollHeight, then remove constraint after transition
                 panel.style.maxHeight = panel.scrollHeight + 'px';
                 panel.classList.add('open');
                 panel.removeAttribute('inert');
@@ -1104,7 +1209,7 @@
                 <div class="onboarding-card">
                     ${contentHtml}
                     <div class="flex justify-between mt-6">
-                        ${showSkip ? '<button id="onboarding-skip" class="btn-secondary text-xs">Skip All</button>' : '<span></span>'}
+                        ${showSkip ? '<button id="onboarding-skip" class="btn-secondary text-xs" title="Skip the tutorial">Skip All</button>' : '<span></span>'}
                         <button id="onboarding-primary" class="btn-primary">${primaryText}</button>
                     </div>
                 </div>`;
@@ -1172,8 +1277,60 @@
             }
         })();
 
-        // ==================== INIT ====================
-        runEngine();
+        // ==================== INIT (zero‑state static) ====================
+        // Set static forensic data that doesn't depend on interaction.
+        $('baselineInc').innerText = '$' + CONFIG.medianIncomeSingle.toLocaleString();
+        $('growthBand').innerText = CONFIG.jobGrowth.recent + '% to +' + CONFIG.jobGrowth.forecast + '%';
+        $('contradictionsCount').innerText = '3';
+        $('svLife').innerText = (CONFIG.searchVolumes.life_coach / 1000).toFixed(1) + 'k';
+        $('svCareer').innerText = (CONFIG.searchVolumes.career_coach / 1000).toFixed(1) + 'k';
+        $('svNear').innerText = (CONFIG.searchVolumes.near_me / 1000).toFixed(1) + 'k';
+        $('svTrans').innerText = (CONFIG.searchVolumes.transformational / 1000).toFixed(1) + 'k';
+        $('cpcConsumer').innerText = '$' + CONFIG.cpc.ads.toFixed(2);
+        $('cpcBusiness').innerText = '$4.90';
+        $('cpcSearch').innerText = '$' + CONFIG.cpc.seo.toFixed(2);
+        $('coachTotal').innerText = CONFIG.coaching.totalUSCoaches.toLocaleString();
+        $('ptBiz').innerText = CONFIG.smallBiz.ptBusinesses.toLocaleString();
+        $('whitespace').innerText = CONFIG.whitespace;
+        $('creatorLow').innerText = CONFIG.creator.low + '%';
+        $('creatorMid').innerText = CONFIG.creator.mid + '%';
+        $('creatorHigh').innerText = CONFIG.creator.high + '%';
+        $('agenciesList').innerText = CONFIG.agencies.join(', ');
+        $('venuesList').innerText = CONFIG.venues;
+        $('webCosts').innerText = 'Freelance ' + CONFIG.webCosts.freelance + ', Agency ' + CONFIG.webCosts.agency + ', Ecom ' + CONFIG.webCosts.ecommerce;
+        $('soloCeiling').innerText = CONFIG.soloCeiling + '/mo';
+        $('billableHours').innerText = CONFIG.billableHrs;
+        $('aiAdoption').innerText = CONFIG.coaching.aiAdoption + '%';
+        $('humanPref').innerText = CONFIG.coaching.humanPref + '%';
+        $('aiMarket').innerText = '$' + CONFIG.coaching.aiMarket + 'B';
+        $('zone1').innerText = CONFIG.microtargeting.zone1;
+        $('zone2').innerText = CONFIG.microtargeting.zone2;
+        $('zone3').innerText = CONFIG.microtargeting.zone3;
+        $('leadTargets').innerText = CONFIG.leadTargets.join(', ');
+        const assumptionsEl = $('modelAssumptions');
+        if (assumptionsEl) {
+            assumptionsEl.innerText = `CPC SEO $${CONFIG.cpc.seo.toFixed(2)}, Social $${CONFIG.cpc.social.toFixed(2)}, Ads $${CONFIG.cpc.ads.toFixed(2)} · ${CONFIG.coaching.humanPref}% human preference · Solo ceiling ${CONFIG.soloCeiling}/mo`;
+        }
+
+        // Set all computed fields to placeholder / zero
+        $('trueNetDisplay').innerText = "$0";
+        $('trueNetDisplay').style.color = 'var(--text-main)';
+        $('grossRevDisplay').innerText = "$0";
+        $('acqBudgetDisplay').innerText = '-' + fmtC(state.budget);
+        $('infraOpexDisplay').innerText = '$0/mo';
+        $('capexAmortDisplay').innerText = '$0/mo';
+        $('ltvDisplay').innerText = '—';
+        $('cacDisplay').innerText = '—';
+        $('ltvCacDisplay').innerText = '—';
+        $('ltvCacDisplay').style.color = 'var(--text-main)';
+        $('clientsDisplay').innerText = '—';
+        $('blendedCpcDisplay').innerText = '—';
+        $('mfmDisplay').innerText = '—';
+        $('effConvDisplay').innerText = '—';
+        $('amortCapexDisplay').innerText = '$0/mo';
+        $('monthlyOpexDisplay').innerText = '$0/mo';
+        $('pipelineChart').innerHTML = '<div class="w-full text-center text-[var(--text-tertiary)] text-xs flex items-center justify-center h-full">Adjust sliders to see funnel</div>';
+        $('systemGates').innerHTML = '';
     })();
     </script>
 </body>
