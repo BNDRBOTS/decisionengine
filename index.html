@@ -298,6 +298,32 @@
             border-radius: 6px 6px 0 0;
             min-height: 4px;
         }
+        .forensic-hidden {
+            display: none !important;
+        }
+
+        /* Onboarding overlay */
+        #onboarding-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(6px);
+        }
+        .onboarding-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            max-width: 480px;
+            width: 90%;
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+        }
     </style>
 </head>
 <body class="p-4 md:p-6 lg:p-8">
@@ -352,8 +378,8 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
                 <div><label for="fieldBuyer" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Buyer</label><input type="text" id="fieldBuyer" placeholder="Who pays?"></div>
                 <div><label for="fieldRole" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Role/Team</label><input type="text" id="fieldRole" placeholder="Who uses it?"></div>
-                <div><label for="fieldTask" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Task</label><input type="text" id="fieldTask" placeholder="Recurring task"></div>
-                <div><label for="fieldOutcome" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Outcome</label><input type="text" id="fieldOutcome" placeholder="Measurable result"></div>
+                <div><label for="fieldTask" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Task</label><input type="text" id="fieldTask" placeholder="Recurring task? e.g. weekly check‑in"></div>
+                <div><label for="fieldOutcome" class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1">Outcome</label><input type="text" id="fieldOutcome" placeholder="Measurable result? e.g. 20% burnout drop"></div>
             </div>
             <div class="score-grid mb-2">
                 <div><label for="scoreV" class="text-[10px] uppercase text-[var(--text-tertiary)] block mb-0.5">V - Value</label><input type="number" id="scoreV" value="5" min="1" max="10"></div>
@@ -425,9 +451,9 @@
                     <div>
                         <div class="flex justify-between items-center mb-1.5">
                             <label for="budgetSlider" class="text-[13px] font-medium">Monthly Acq Budget</label>
-                            <span class="text-xl font-bold font-mono" style="color:var(--accent)" id="budgetDisplay">$5,000</span>
+                            <span class="text-xl font-bold font-mono" style="color:var(--accent)" id="budgetDisplay">$500</span>
                         </div>
-                        <input type="range" id="budgetSlider" min="500" max="50000" step="500" value="5000" class="slider-accent">
+                        <input type="range" id="budgetSlider" min="500" max="50000" step="500" value="500" class="slider-accent">
                     </div>
                     <div>
                         <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5">Conversion Scenario</label>
@@ -462,17 +488,17 @@
                     <div class="flex gap-4 bg-black/25 rounded-xl border border-[var(--border)] p-3">
                         <div class="flex-1">
                             <span class="text-[10px] uppercase font-semibold tracking-wider text-[var(--text-tertiary)]">Capex (12m Amort)</span>
-                            <p class="text-base font-bold font-mono mt-0.5" id="amortCapexDisplay">$667/mo</p>
+                            <p class="text-base font-bold font-mono mt-0.5" id="amortCapexDisplay">$458/mo</p>
                         </div>
                         <div class="flex-1 border-l border-[var(--border)] pl-4">
                             <span class="text-[10px] uppercase font-semibold tracking-wider text-[var(--text-tertiary)]">Monthly Opex</span>
-                            <p class="text-base font-bold font-mono mt-0.5" id="monthlyOpexDisplay">$1,200/mo</p>
+                            <p class="text-base font-bold font-mono mt-0.5" id="monthlyOpexDisplay">$300/mo</p>
                         </div>
                     </div>
                     <label class="flex justify-between items-center pt-2 border-t border-[var(--border)] cursor-pointer">
                         <div>
-                            <span class="text-[13px] font-semibold">AI Intake Backend</span>
-                            <p class="text-[10px] text-[var(--text-tertiary)] mt-0.5">85% of clients prefer human coaches</p>
+                            <span class="text-[13px] font-semibold">AI Intake Automation</span>
+                            <p class="text-[10px] text-[var(--text-tertiary)] mt-0.5">Simulates AI‑only intake: only 15% of leads convert (85% prefer human coaches)</p>
                         </div>
                         <div class="relative inline-block w-11 h-6 flex-shrink-0">
                             <input type="checkbox" id="aiIntakeToggle" class="sr-only">
@@ -482,13 +508,19 @@
                     </label>
                 </div>
 
-                <!-- Resolved Contradictions + AI -->
+                <!-- Market Snapshot + AI -->
                 <div class="glass-panel p-5 space-y-3">
-                    <h3 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Resolved Contradictions</h3>
+                    <h3 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Market Snapshot</h3>
                     <div class="text-xs font-mono space-y-1.5">
                         <p>Income baseline: <span id="baselineInc" class="font-bold">$73,935</span></p>
                         <p>Job growth band: <span id="growthBand">-0.2% to +1.1%</span></p>
-                        <p>Active disputes: <span id="contradictionsCount" class="font-bold" style="color:var(--warn)">3</span></p>
+                        <p>Data points reconciled: <span id="contradictionsCount" class="font-bold" style="color:var(--warn)">3</span></p>
+                    </div>
+                    <hr>
+                    <!-- Compact Model Assumptions -->
+                    <div class="text-xs font-mono text-[var(--text-tertiary)]">
+                        <span class="font-semibold text-[11px] uppercase tracking-wider text-[var(--text-secondary)]">Model Assumptions:</span>
+                        <span id="modelAssumptions">CPC SEO $2.96, Social $1.50, Ads $6.40 · 85% human preference · Solo ceiling 5/mo</span>
                     </div>
                     <hr>
                     <div>
@@ -511,15 +543,15 @@
                     </div>
                     <div class="md:w-2/5 p-6 flex flex-col justify-center gap-3 bg-black/20 border-t md:border-t-0 md:border-l border-[var(--border)]">
                         <div class="flex flex-col border-b border-[var(--border)] pb-2"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Gross Revenue</span><span class="text-lg font-bold font-mono" id="grossRevDisplay">$0</span></div>
-                        <div class="flex flex-col border-b border-[var(--border)] pb-2"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Acq Budget</span><span class="text-lg font-bold font-mono text-[var(--danger)]" id="acqBudgetDisplay">-$5,000</span></div>
-                        <div class="flex flex-col border-b border-[var(--border)] pb-2"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Infra Opex</span><span class="text-lg font-bold font-mono text-[var(--danger)]" id="infraOpexDisplay">-$1,200</span></div>
-                        <div class="flex flex-col"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Capex (Amort)</span><span class="text-lg font-bold font-mono text-[var(--danger)]" id="capexAmortDisplay">-$667</span></div>
+                        <div class="flex flex-col border-b border-[var(--border)] pb-2"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Acq Budget</span><span class="text-lg font-bold font-mono text-[var(--danger)]" id="acqBudgetDisplay">-$500</span></div>
+                        <div class="flex flex-col border-b border-[var(--border)] pb-2"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Infra Opex</span><span class="text-lg font-bold font-mono text-[var(--danger)]" id="infraOpexDisplay">-$300</span></div>
+                        <div class="flex flex-col"><span class="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-tertiary)]">Capex (Amort)</span><span class="text-lg font-bold font-mono text-[var(--danger)]" id="capexAmortDisplay">-$458</span></div>
                     </div>
                 </div>
 
                 <!-- KPI Grid -->
                 <div class="result-grid">
-                    <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1">Client LTV</p><p id="ltvDisplay" class="stat-num text-xl">$1,500</p></div>
+                    <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1">Client LTV</p><p id="ltvDisplay" class="stat-num text-xl">$150</p></div>
                     <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1">Blended CAC</p><p id="cacDisplay" class="stat-num text-xl">--</p></div>
                     <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1">LTV:CAC</p><p id="ltvCacDisplay" class="stat-num text-xl" style="color:var(--success)">--</p></div>
                     <div class="card-stat"><p class="text-[11px] uppercase font-semibold tracking-wider text-[var(--text-secondary)] mb-1">Clients/Mo</p><p id="clientsDisplay" class="stat-num text-xl">--</p></div>
@@ -530,8 +562,8 @@
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Funnel Topology</h3>
                         <div class="flex gap-3 text-xs">
-                            <span class="text-[var(--text-tertiary)]">MFM IDX: <span id="mfmDisplay" style="color:var(--accent)">1.00x</span></span>
-                            <span class="text-[var(--text-tertiary)] border-l border-[var(--border)] pl-3">EFF CONV: <span id="effConvDisplay" class="text-[var(--text-main)]">2.35%</span></span>
+                            <span class="text-[var(--text-tertiary)]">Market Fit: <span id="mfmDisplay" style="color:var(--accent)">1.00x</span></span>
+                            <span class="text-[var(--text-tertiary)] border-l border-[var(--border)] pl-3">Conv Rate: <span id="effConvDisplay" class="text-[var(--text-main)]">2.35%</span></span>
                         </div>
                     </div>
                     <div id="pipelineChart" role="img" aria-label="" class="flex items-end justify-between gap-2 h-48">
@@ -539,13 +571,15 @@
                     </div>
                 </div>
 
-                <!-- Forensic Data Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="glass-panel p-4"><h3 class="text-sm font-semibold mb-2"><span class="badge badge-accent">Demand</span></h3><ul class="text-xs space-y-1.5" style="list-style:none;"><li class="flex justify-between"><span class="text-[var(--text-secondary)]">"life coach"</span> <span class="font-mono" id="svLife">18k</span>/mo</li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">"career coach"</span> <span class="font-mono" id="svCareer">14k</span>/mo</li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">"life coach near me"</span> <span class="font-mono" id="svNear">7.5k</span>/mo</li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">"transformational coach"</span> <span class="font-mono" id="svTrans">2.9k</span>/mo</li><li class="pt-1.5 mt-1.5 border-t border-[var(--border)] text-[var(--text-tertiary)]">CPC: consumer <span class="font-mono text-[var(--text-main)]" id="cpcConsumer">$6.40</span>, business <span class="font-mono text-[var(--text-main)]" id="cpcBusiness">$4.90</span>, search <span class="font-mono text-[var(--text-main)]" id="cpcSearch">$2.96</span></li></ul></div>
-                    <div class="glass-panel p-4"><h3 class="text-sm font-semibold mb-2"><span class="badge badge-accent">Competition</span></h3><ul class="text-xs space-y-1.5" style="list-style:none;"><li class="flex justify-between"><span class="text-[var(--text-secondary)]">US coaches</span> <span class="font-mono" id="coachTotal">232k</span></li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">PT businesses</span> <span class="font-mono" id="ptBiz">728k</span></li><li class="flex"><span class="text-[var(--text-secondary)]">Whitespace:</span> <span id="whitespace" class="ml-1">Burnout, GLP-1, exec coaching</span></li><li class="pt-1.5 mt-1.5 border-t border-[var(--border)] text-[var(--text-tertiary)]">Creator earnings: <$10k <span class="font-mono text-[var(--text-main)]" id="creatorLow">48.7%</span>, $10-100k <span class="font-mono text-[var(--text-main)]" id="creatorMid">45.6%</span>, >$100k <span class="font-mono text-[var(--text-main)]" id="creatorHigh">5.7%</span></li></ul></div>
-                    <div class="glass-panel p-4"><h3 class="text-sm font-semibold mb-2"><span class="badge badge-accent">Local Infra</span></h3><ul class="text-xs space-y-1.5" style="list-style:none;"><li><span class="text-[var(--text-secondary)]">Agencies:</span> <span id="agenciesList"></span></li><li><span class="text-[var(--text-secondary)]">Venues:</span> <span id="venuesList"></span></li><li><span class="text-[var(--text-secondary)]">Web build:</span> <span id="webCosts"></span></li></ul></div>
-                    <div class="glass-panel p-4"><h3 class="text-sm font-semibold mb-2"><span class="badge badge-accent">Throughput</span></h3><ul class="text-xs space-y-1.5" style="list-style:none;"><li class="flex justify-between"><span class="text-[var(--text-secondary)]">Solo ceiling</span> <span class="font-mono" id="soloCeiling">5/mo</span></li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">Billable hrs/client</span> <span class="font-mono" id="billableHours">65</span></li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">Trainers with AI</span> <span class="font-mono" id="aiAdoption">64%</span></li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">Prefer human</span> <span class="font-mono" id="humanPref">85%</span></li><li class="flex justify-between pt-1.5 mt-1.5 border-t border-[var(--border)]"><span class="text-[var(--text-secondary)]">AI market 2026</span> <span class="font-mono" id="aiMarket">$5.8B</span></li></ul></div>
-                    <div class="glass-panel p-4 md:col-span-2"><h3 class="text-sm font-semibold mb-2"><span class="badge badge-accent">Microtargeting</span></h3><div class="text-xs grid grid-cols-3 gap-3"><div><span class="font-semibold">Zone 1</span><br><span id="zone1" class="text-[var(--text-tertiary)]"></span></div><div><span class="font-semibold">Zone 2</span><br><span id="zone2" class="text-[var(--text-tertiary)]"></span></div><div><span class="font-semibold">Zone 3</span><br><span id="zone3" class="text-[var(--text-tertiary)]"></span></div></div><p class="text-xs mt-2"><span class="font-semibold">B2B Targets:</span> <span id="leadTargets" class="text-[var(--text-tertiary)]"></span></p></div>
+                <!-- Forensic Data Cards (hidden) -->
+                <div class="forensic-hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="glass-panel p-4"><h3 class="text-sm font-semibold mb-2"><span class="badge badge-accent">Demand</span></h3><ul class="text-xs space-y-1.5" style="list-style:none;"><li class="flex justify-between"><span class="text-[var(--text-secondary)]">"life coach"</span> <span class="font-mono" id="svLife">18k</span>/mo</li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">"career coach"</span> <span class="font-mono" id="svCareer">14k</span>/mo</li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">"life coach near me"</span> <span class="font-mono" id="svNear">7.5k</span>/mo</li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">"transformational coach"</span> <span class="font-mono" id="svTrans">2.9k</span>/mo</li><li class="pt-1.5 mt-1.5 border-t border-[var(--border)] text-[var(--text-tertiary)]">CPC: consumer <span class="font-mono text-[var(--text-main)]" id="cpcConsumer">$6.40</span>, business <span class="font-mono text-[var(--text-main)]" id="cpcBusiness">$4.90</span>, search <span class="font-mono text-[var(--text-main)]" id="cpcSearch">$2.96</span></li></ul></div>
+                        <div class="glass-panel p-4"><h3 class="text-sm font-semibold mb-2"><span class="badge badge-accent">Competition</span></h3><ul class="text-xs space-y-1.5" style="list-style:none;"><li class="flex justify-between"><span class="text-[var(--text-secondary)]">US coaches</span> <span class="font-mono" id="coachTotal">232k</span></li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">PT businesses</span> <span class="font-mono" id="ptBiz">728k</span></li><li class="flex"><span class="text-[var(--text-secondary)]">Whitespace:</span> <span id="whitespace" class="ml-1">Burnout, GLP-1, exec coaching</span></li><li class="pt-1.5 mt-1.5 border-t border-[var(--border)] text-[var(--text-tertiary)]">Creator earnings: <$10k <span class="font-mono text-[var(--text-main)]" id="creatorLow">48.7%</span>, $10-100k <span class="font-mono text-[var(--text-main)]" id="creatorMid">45.6%</span>, >$100k <span class="font-mono text-[var(--text-main)]" id="creatorHigh">5.7%</span></li></ul></div>
+                        <div class="glass-panel p-4"><h3 class="text-sm font-semibold mb-2"><span class="badge badge-accent">Local Infra</span></h3><ul class="text-xs space-y-1.5" style="list-style:none;"><li><span class="text-[var(--text-secondary)]">Agencies:</span> <span id="agenciesList"></span></li><li><span class="text-[var(--text-secondary)]">Venues:</span> <span id="venuesList"></span></li><li><span class="text-[var(--text-secondary)]">Web build:</span> <span id="webCosts"></span></li></ul></div>
+                        <div class="glass-panel p-4"><h3 class="text-sm font-semibold mb-2"><span class="badge badge-accent">Throughput</span></h3><ul class="text-xs space-y-1.5" style="list-style:none;"><li class="flex justify-between"><span class="text-[var(--text-secondary)]">Solo ceiling</span> <span class="font-mono" id="soloCeiling">5/mo</span></li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">Billable hrs/client</span> <span class="font-mono" id="billableHours">65</span></li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">Trainers with AI</span> <span class="font-mono" id="aiAdoption">64%</span></li><li class="flex justify-between"><span class="text-[var(--text-secondary)]">Prefer human</span> <span class="font-mono" id="humanPref">85%</span></li><li class="flex justify-between pt-1.5 mt-1.5 border-t border-[var(--border)]"><span class="text-[var(--text-secondary)]">AI market 2026</span> <span class="font-mono" id="aiMarket">$5.8B</span></li></ul></div>
+                        <div class="glass-panel p-4 md:col-span-2"><h3 class="text-sm font-semibold mb-2"><span class="badge badge-accent">Microtargeting</span></h3><div class="text-xs grid grid-cols-3 gap-3"><div><span class="font-semibold">Zone 1</span><br><span id="zone1" class="text-[var(--text-tertiary)]"></span></div><div><span class="font-semibold">Zone 2</span><br><span id="zone2" class="text-[var(--text-tertiary)]"></span></div><div><span class="font-semibold">Zone 3</span><br><span id="zone3" class="text-[var(--text-tertiary)]"></span></div></div><p class="text-xs mt-2"><span class="font-semibold">B2B Targets:</span> <span id="leadTargets" class="text-[var(--text-tertiary)]"></span></p></div>
+                    </div>
                 </div>
 
                 <!-- System Diagnostics -->
@@ -553,7 +587,9 @@
 
                 <!-- Footer -->
                 <footer class="text-xs text-[var(--text-tertiary)] flex flex-wrap justify-between gap-2 pt-4 border-t border-[var(--border)]">
-                    <span><strong>bndrllc.com</strong> | BNDR LLC ALL RIGHTS RESERVED</span>
+                    <span>
+                        <a href="https://bndrllc.com" class="hover:text-[var(--text-main)] transition-colors font-semibold" target="_blank" rel="noopener">bndrllc.com</a> | BNDR LLC ALL RIGHTS RESERVED
+                    </span>
                     <span>
                         <a href="https://www.dropbox.com/scl/fi/um6xi0vfzj0w03kgxtrq2/privacy.html?rlkey=6ylhioa276mrynqylvxc19u7v&st=iakils4n&raw=1" class="hover:text-[var(--text-main)] transition-colors">Privacy</a> -
                         <a href="https://www.dropbox.com/scl/fi/um6xi0vfzj0w03kgxtrq2/privacy.html?rlkey=6ylhioa276mrynqylvxc19u7v&st=28ft9zz3&raw=1" class="hover:text-[var(--text-main)] transition-colors">Terms</a> -
@@ -603,7 +639,7 @@
 
         // ==================== STATE ====================
         let state = {
-            budget: 5000,
+            budget: 500,
             infra: 'freelance',
             packageTier: 'floor',
             scenario: 'expected',
@@ -832,7 +868,7 @@
             }).join('');
             chartContainer.setAttribute('aria-label', `Funnel: ${fmtN(totalTraffic)} traffic → ${fmtN(leads)} leads → ${fmtN(mqls)} MQLs → ${fmtN(meetings)} meetings → ${fmtN(clients)} clients`);
 
-            // Update forensic data
+            // Update forensic data (hidden elements – still runs for JS compatibility)
             $('baselineInc').innerText = '$' + CONFIG.medianIncomeSingle.toLocaleString();
             $('growthBand').innerText = CONFIG.jobGrowth.recent + '% to +' + CONFIG.jobGrowth.forecast + '%';
             $('contradictionsCount').innerText = '3';
@@ -861,6 +897,12 @@
             $('zone2').innerText = CONFIG.microtargeting.zone2;
             $('zone3').innerText = CONFIG.microtargeting.zone3;
             $('leadTargets').innerText = CONFIG.leadTargets.join(', ');
+
+            // Update compact model assumptions line
+            const assumptionsEl = $('modelAssumptions');
+            if (assumptionsEl) {
+                assumptionsEl.innerText = `CPC SEO $${CONFIG.cpc.seo.toFixed(2)}, Social $${CONFIG.cpc.social.toFixed(2)}, Ads $${CONFIG.cpc.ads.toFixed(2)} · ${CONFIG.coaching.humanPref}% human preference · Solo ceiling ${CONFIG.soloCeiling}/mo`;
+            }
         }
 
         // ==================== AI INSIGHT ====================
@@ -1036,6 +1078,99 @@
             ['ideaLabel', 'fieldBuyer', 'fieldRole', 'fieldTask', 'fieldOutcome', 'evidenceText'].forEach(id => $(id).value = '');
             renderResults();
         });
+
+        // ==================== ONBOARDING & DISCLAIMER ====================
+        (function() {
+            const DISCLAIMER_KEY = 'bndr_disclaimer_agreed';
+            const ONBOARDING_KEY = 'bndr_onboarding_complete';
+
+            const steps = [
+                { title: 'Welcome', text: 'Welcome to the BNDR Revenue Engine. This tool models your coaching business revenue using real‑time market data. We\'ll guide you through each section.' },
+                { title: 'Pricing Model', text: 'Choose your service niche and package tier. The Client Lifespan slider sets how many sessions each client buys. Adjust to see the impact on LTV and net profit.' },
+                { title: 'Capital & Channels', text: 'Set your monthly acquisition budget and select a conversion scenario. The channel sliders allocate your spend across SEO, paid search, and social. They auto‑balance to 100%.' },
+                { title: 'Infrastructure & AI Intake', text: 'Pick your digital infrastructure type to see estimated costs (capex amortized + monthly opex). Toggle AI Intake Automation to simulate AI‑only intake — only 15% of leads convert initially (85% prefer human coaches).' },
+                { title: 'THA SHYT Decision Engine', text: 'Open the Decision Engine panel to score consulting ideas. Fill in buyer, role, task, and outcome, then rate each idea on 8 dimensions. Click Score Idea to see its THA SHYT score.' },
+                { title: 'Results & Diagnostics', text: 'Watch the true net profit, KPI cards, and funnel chart update in real time. The System Diagnostics panel flags issues like capital burn or throughput limits.' },
+                { title: 'Ready to explore', text: 'You\'re all set! Click Finish to dismiss this guide and start adjusting any control. Your projections will update instantly.' }
+            ];
+            let currentStep = 0;
+            let overlay = null;
+
+            function createOverlay(contentHtml, onPrimary, primaryText, showSkip, onSkip) {
+                if (overlay) overlay.remove();
+                overlay = document.createElement('div');
+                overlay.id = 'onboarding-overlay';
+                overlay.innerHTML = `
+                <div class="onboarding-card">
+                    ${contentHtml}
+                    <div class="flex justify-between mt-6">
+                        ${showSkip ? '<button id="onboarding-skip" class="btn-secondary text-xs">Skip All</button>' : '<span></span>'}
+                        <button id="onboarding-primary" class="btn-primary">${primaryText}</button>
+                    </div>
+                </div>`;
+                document.body.appendChild(overlay);
+                if (showSkip) {
+                    document.getElementById('onboarding-skip').addEventListener('click', onSkip);
+                }
+                document.getElementById('onboarding-primary').addEventListener('click', onPrimary);
+            }
+
+            function removeOverlay() {
+                if (overlay) {
+                    overlay.remove();
+                    overlay = null;
+                }
+            }
+
+            function completeOnboarding() {
+                sessionStorage.setItem(ONBOARDING_KEY, 'true');
+                removeOverlay();
+            }
+
+            function showStep(index) {
+                if (index >= steps.length) {
+                    completeOnboarding();
+                    return;
+                }
+                const step = steps[index];
+                const html = `
+                <h3 class="text-lg font-bold mb-2">${step.title}</h3>
+                <p class="text-sm text-[var(--text-secondary)] leading-relaxed">${step.text}</p>
+                <div class="text-xs text-[var(--text-tertiary)] mt-3">Step ${index+1} of ${steps.length}</div>
+                `;
+                createOverlay(html, () => {
+                    currentStep++;
+                    showStep(currentStep);
+                }, index === steps.length-1 ? 'Finish' : 'Next', true, () => {
+                    completeOnboarding();
+                });
+            }
+
+            function startOnboarding() {
+                currentStep = 0;
+                showStep(0);
+            }
+
+            function showDisclaimer() {
+                const disclaimerHtml = `
+                <h3 class="text-lg font-bold mb-2">Disclaimer</h3>
+                <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+                    This tool is provided for informational and educational purposes only. It does not constitute financial, legal, or business advice. BNDR LLC makes no guarantees regarding the accuracy of projections or outcomes. By using this tool, you agree that you assume all risks associated with any business decisions made based on its output.
+                </p>
+                `;
+                createOverlay(disclaimerHtml, () => {
+                    sessionStorage.setItem(DISCLAIMER_KEY, 'true');
+                    removeOverlay();
+                    startOnboarding();
+                }, 'I Agree', false);
+            }
+
+            if (!sessionStorage.getItem(DISCLAIMER_KEY)) {
+                showDisclaimer();
+            } else if (!sessionStorage.getItem(ONBOARDING_KEY)) {
+                startOnboarding();
+            }
+        })();
 
         // ==================== INIT ====================
         runEngine();
