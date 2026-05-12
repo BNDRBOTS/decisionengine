@@ -1070,7 +1070,8 @@
                 const data = await resp.json();
                 box.innerText = data.choices?.[0]?.message?.content || 'No insight returned.';
             } catch (err) {
-                if (err instanceof TypeError && err.message.includes('NetworkError')) {
+                // Detect common CORS/network error messages across browsers
+                if (err instanceof TypeError && /failed to fetch|networkerror|load failed/i.test(err.message)) {
                     box.innerText = 'Blocked by browser CORS policy. Use a backend proxy or a browser extension that enables CORS.';
                 } else {
                     box.innerText = 'Error: ' + err.message;
