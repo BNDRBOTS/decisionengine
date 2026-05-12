@@ -17,8 +17,12 @@ The integrated **THA SHYT Decision Engine** scores consulting offers on 8 dimens
 - **Zero‑sum channel sliders** – auto‑balance SEO, ads, social spend while updating traffic forecasts.  
 - **AI Intake simulation** – toggles between human‑preferred (85%) and automated intake impact on conversion.  
 - **Market snapshot** – Phoenix income baseline, job growth, CPC assumptions.  
+- **THA SHYT Decision Engine** – scored, ranked consulting ideas with confidence‑weighted scoring.  
+- **System diagnostics** – automatic gates for market‑fit, LTV:CAC ratio, throughput limits, capital burn.  
+- **DeepSeek AI Insight** – optional one‑click strategic pivot (key stored in session).  
 - **Onboarding walkthrough** and mandatory disclaimer before first use.  
-- **Accessible** – programmatic labels, ARIA attributes, inert panels.
+- **Accessible** – programmatic labels, ARIA radiogroups, aria‑expanded, inert panels.  
+- **Responsive** – works on mobile, tablet, and desktop.
 
 ## Tech Stack
 
@@ -43,13 +47,6 @@ const CONFIG = {
   coaching: { humanPref: 85, soloCeiling: 5 },
   // ...
 };
-```
-
-## DeepSeek AI Insights
-
-- Click the **AI Insight** button to get a strategic recommendation from DeepSeek’s API.  
-- Requires a temporary API key (stored in sessionStorage only).  
-- On 401/403, the key is automatically cleared and a prompt to re‑enter appears.
 
 ## Onboarding & Disclaimer
 
