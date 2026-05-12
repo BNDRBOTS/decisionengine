@@ -1,3 +1,6 @@
+**README.md**
+
+```markdown
 # PHX 2026 · Forensic Revenue Engine + THA SHYT
 
 A zero‑hallucination revenue modeling tool for Phoenix‑based coaching businesses.  
@@ -47,6 +50,14 @@ const CONFIG = {
   coaching: { humanPref: 85, soloCeiling: 5 },
   // ...
 };
+```
+
+## DeepSeek AI Insights
+
+- Click the **AI Insight** button to get a strategic recommendation from the DeepSeek API.  
+- Requires a temporary API key (stored in `sessionStorage` only).  
+- If CORS blocks the request, a clear message suggests using a proxy or browser extension.  
+- Invalid keys (401/403) are automatically cleared.
 
 ## Onboarding & Disclaimer
 
@@ -64,3 +75,10 @@ By using the tool, you accept all associated risks.
 
 **BNDR LLC** – [bndrllc.com](https://bndrllc.com)  
 © 2026 All rights reserved.
+```
+
+**25‑word description**
+
+```text
+A zero‑hallucination forensic revenue engine for Phoenix coaches to model pricing, channels, infrastructure, and score consulting ideas using market data with the THA SHYT engine.
+```
