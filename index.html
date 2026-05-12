@@ -374,7 +374,7 @@
                 </p>
             </div>
             <div class="flex items-center gap-2 flex-wrap">
-                <button id="decisionToggleBtn" class="btn-secondary" title="Open/close the THA SHYT decision engine to score consulting ideas">Decision Engine</button>
+                <button id="decisionToggleBtn" class="btn-secondary" aria-expanded="false" title="Open/close the THA SHYT decision engine to score consulting ideas">Decision Engine</button>
                 <button id="aiToggleBtn" class="btn-secondary" title="Get an AI-generated strategic insight using your DeepSeek API key">AI Insight</button>
                 <button id="cheatSheetBtn" class="btn-secondary" title="View a quick reference mapping each control to the real-world question it answers">Cheat Sheet</button>
             </div>
@@ -451,19 +451,19 @@
                     <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Pricing Model</h2>
                     <div>
                         <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5" title="The coaching specialty you want to model">What's your coaching niche?</label>
-                        <div id="nicheGroup" class="segmented-control">
-                            <button data-niche="burnout" class="active" title="Stress and burnout coaching for professionals">Burnout</button>
-                            <button data-niche="executive" title="Executive leadership and career acceleration">Executive</button>
-                            <button data-niche="generalist" title="General life coaching">Generalist</button>
-                            <button data-niche="health" title="Health and wellness coaching">Health</button>
+                        <div id="nicheGroup" class="segmented-control" role="radiogroup" aria-label="Coaching niche">
+                            <button data-niche="burnout" class="active" role="radio" aria-checked="true" title="Stress and burnout coaching for professionals">Burnout</button>
+                            <button data-niche="executive" role="radio" aria-checked="false" title="Executive leadership and career acceleration">Executive</button>
+                            <button data-niche="generalist" role="radio" aria-checked="false" title="General life coaching">Generalist</button>
+                            <button data-niche="health" role="radio" aria-checked="false" title="Health and wellness coaching">Health</button>
                         </div>
                     </div>
                     <div>
                         <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5" title="The price point per client you typically charge">What's your typical session price?</label>
-                        <div id="packageGroup" class="segmented-control">
-                            <button data-tier="floor" class="active" title="Low‑touch, group or automated delivery">Floor $150</button>
-                            <button data-tier="mid" title="Hybrid 1‑on‑1 with some asynchronous support">Mid $1,500</button>
-                            <button data-tier="ceiling" title="Premium, high‑touch 1‑on‑1">Ceiling $15,000</button>
+                        <div id="packageGroup" class="segmented-control" role="radiogroup" aria-label="Package tier">
+                            <button data-tier="floor" class="active" role="radio" aria-checked="true" title="Low‑touch, group or automated delivery">Floor $150</button>
+                            <button data-tier="mid" role="radio" aria-checked="false" title="Hybrid 1‑on‑1 with some asynchronous support">Mid $1,500</button>
+                            <button data-tier="ceiling" role="radio" aria-checked="false" title="Premium, high‑touch 1‑on‑1">Ceiling $15,000</button>
                         </div>
                     </div>
                     <div>
@@ -487,10 +487,10 @@
                     </div>
                     <div>
                         <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5" title="Your expectation for how well your ads and content will convert visitors into leads">How optimistic are you about conversions?</label>
-                        <div id="scenarioGroup" class="segmented-control">
-                            <button data-scenario="conservative" title="Lower conversion rates; more budget per lead">Conservative</button>
-                            <button data-scenario="expected" class="active" title="Average industry conversion rates">Expected</button>
-                            <button data-scenario="aggressive" title="Higher conversion rates; less budget per lead">Aggressive</button>
+                        <div id="scenarioGroup" class="segmented-control" role="radiogroup" aria-label="Conversion scenario">
+                            <button data-scenario="conservative" role="radio" aria-checked="false" title="Lower conversion rates; more budget per lead">Conservative</button>
+                            <button data-scenario="expected" class="active" role="radio" aria-checked="true" title="Average industry conversion rates">Expected</button>
+                            <button data-scenario="aggressive" role="radio" aria-checked="false" title="Higher conversion rates; less budget per lead">Aggressive</button>
                         </div>
                     </div>
                     <div class="border-t border-[var(--border)] pt-4">
@@ -509,10 +509,10 @@
                     <h2 class="text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">Infrastructure & AI</h2>
                     <div>
                         <label class="block text-[11px] font-semibold uppercase tracking-wider text-[var(--text-secondary)] mb-1.5" title="The type of digital operation you run (impacts website and tools costs)">What's your online setup?</label>
-                        <div id="infraGroup" class="segmented-control">
-                            <button data-infra="freelance" class="active" title="Simple website, minimal tools, typical for solo coaches">Freelance</button>
-                            <button data-infra="agency" title="Professional website with booking, CRM, and team features">Agency</button>
-                            <button data-infra="ecommerce" title="Full e‑commerce platform with courses, memberships, and automation">Ecommerce</button>
+                        <div id="infraGroup" class="segmented-control" role="radiogroup" aria-label="Infrastructure type">
+                            <button data-infra="freelance" class="active" role="radio" aria-checked="true" title="Simple website, minimal tools, typical for solo coaches">Freelance</button>
+                            <button data-infra="agency" role="radio" aria-checked="false" title="Professional website with booking, CRM, and team features">Agency</button>
+                            <button data-infra="ecommerce" role="radio" aria-checked="false" title="Full e‑commerce platform with courses, memberships, and automation">Ecommerce</button>
                         </div>
                     </div>
                     <div class="flex gap-4 bg-black/25 rounded-xl border border-[var(--border)] p-3">
@@ -703,6 +703,10 @@
         const $ = id => document.getElementById(id);
         const fmtC = n => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
         const fmtN = n => new Intl.NumberFormat('en-US').format(n);
+        const escapeHtml = (str) => {
+            const map = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'};
+            return String(str).replace(/[&<>"']/g, m => map[m]);
+        };
 
         // ==================== STATE ====================
         let state = {
@@ -730,12 +734,26 @@
         function setupSegmented(groupId, callback) {
             const group = $(groupId);
             if (!group) return;
+            // Initialize ARIA attributes on buttons
+            const buttons = group.querySelectorAll('button');
+            const updateAria = (activeBtn) => {
+                buttons.forEach(b => {
+                    const isActive = b.classList.contains('active');
+                    b.setAttribute('aria-checked', isActive ? 'true' : 'false');
+                });
+            };
+            // set initial aria-checked
+            buttons.forEach(b => {
+                b.setAttribute('role', 'radio');
+            });
+            updateAria();
             group.addEventListener('click', e => {
                 const btn = e.target.closest('button');
                 if (!btn) return;
                 group.querySelectorAll('button').forEach(b => { b.classList.remove('active'); });
                 btn.classList.add('active');
                 userHasInteracted = true;
+                updateAria(btn);
                 callback(btn);
             });
         }
@@ -950,7 +968,7 @@
 
             // System gates
             const gatesContainer = $('systemGates');
-            gatesContainer.innerHTML = '<span class="text-[11px] uppercase tracking-wider font-semibold text-[var(--text-secondary)] block mb-2">System Diagnostics</span>' + gates.map(g => `<div class="flex items-center gap-2.5 mt-1"><span class="w-2 h-2 rounded-full" style="background:var(--${g.color})"></span><span class="text-[12px] font-medium">${g.msg}</span></div>`).join('');
+            gatesContainer.innerHTML = '<span class="text-[11px] uppercase tracking-wider font-semibold text-[var(--text-secondary)] block mb-2">System Diagnostics</span>' + gates.map(g => `<div class="flex items-center gap-2.5 mt-1"><span class="w-2 h-2 rounded-full" style="background:var(--${g.color})"></span><span class="text-[12px] font-medium">${escapeHtml(g.msg)}</span></div>`).join('');
 
             // Pipeline chart
             const pipelineData = [
@@ -968,8 +986,8 @@
               <span class="text-sm md:text-base font-bold font-mono mb-2" style="color:${d.color==='var(--accent)'?'var(--text-main)':d.color}">${fmtN(d.val)}</span>
               <div class="w-full pipeline-bar" style="height:${h}%;background:${d.color==='var(--accent)'?'linear-gradient(135deg, #E2FF3D 0%, #9DFF00 100%)':d.color};"></div>
               <div class="mt-3 text-center">
-                <p class="text-[10px] uppercase font-semibold tracking-wider text-[var(--text-tertiary)]">${d.label}</p>
-                ${d.ratio ? `<p class="text-[9px] text-[var(--text-tertiary)] mt-0.5">${d.ratio}</p>` : ''}
+                <p class="text-[10px] uppercase font-semibold tracking-wider text-[var(--text-tertiary)]">${escapeHtml(d.label)}</p>
+                ${d.ratio ? `<p class="text-[9px] text-[var(--text-tertiary)] mt-0.5">${escapeHtml(d.ratio)}</p>` : ''}
               </div>
             </div>`;
             }).join('');
@@ -1051,7 +1069,13 @@
                 }
                 const data = await resp.json();
                 box.innerText = data.choices?.[0]?.message?.content || 'No insight returned.';
-            } catch (err) { box.innerText = 'Error: ' + err.message; }
+            } catch (err) {
+                if (err instanceof TypeError && err.message.includes('NetworkError')) {
+                    box.innerText = 'Blocked by browser CORS policy. Use a backend proxy or a browser extension that enables CORS.';
+                } else {
+                    box.innerText = 'Error: ' + err.message;
+                }
+            }
         });
         $('clearKeyBtn').addEventListener('click', () => {
             sessionStorage.removeItem('bndr_deepseek_key');
@@ -1069,6 +1093,7 @@
 
         function toggleDecisionEngine() {
             const panel = $('decision-engine');
+            const toggleBtn = $('decisionToggleBtn');
             if (panel.classList.contains('open')) {
                 panel.style.maxHeight = panel.scrollHeight + 'px';
                 requestAnimationFrame(() => {
@@ -1076,6 +1101,7 @@
                 });
                 panel.classList.remove('open');
                 panel.setAttribute('inert', '');
+                if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
                 const onTransitionEnd = () => {
                     panel.style.maxHeight = '';
                     panel.removeEventListener('transitionend', onTransitionEnd);
@@ -1085,6 +1111,7 @@
                 panel.style.maxHeight = panel.scrollHeight + 'px';
                 panel.classList.add('open');
                 panel.removeAttribute('inert');
+                if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
                 const onTransitionEnd = () => {
                     panel.style.maxHeight = 'none';
                     panel.removeEventListener('transitionend', onTransitionEnd);
@@ -1133,10 +1160,10 @@
         function formatResult(item) {
             const { idea, validation, computed } = item;
             let out = '';
-            out += `IDEA: ${idea.label || '(unlabeled)'}\n`;
-            out += `VALIDITY: ${validation.valid ? 'VALID' : validation.reason}\n`;
+            out += `IDEA: ${escapeHtml(idea.label || '(unlabeled)')}\n`;
+            out += `VALIDITY: ${validation.valid ? 'VALID' : escapeHtml(validation.reason)}\n`;
             if (validation.valid) {
-                out += `BUYER: ${idea.buyer}\nROLE/TEAM: ${idea.role}\nTASK: ${idea.task}\nOUTCOME: ${idea.outcome}\n`;
+                out += `BUYER: ${escapeHtml(idea.buyer)}\nROLE/TEAM: ${escapeHtml(idea.role)}\nTASK: ${escapeHtml(idea.task)}\nOUTCOME: ${escapeHtml(idea.outcome)}\n`;
                 out += `SCORES: ${VAR_NAMES.map(v => v + '=' + idea.scores[v]).join(', ')}\n`;
                 out += `CONFIDENCE: ${VAR_NAMES.map(v => 'C' + v + '=' + idea.confidence[v]).join(', ')}\n`;
                 if (computed.final !== null) {
@@ -1161,11 +1188,28 @@
             for (let i = 0; i < ideaList.length; i++) {
                 const item = ideaList[i];
                 const rankIdx = ranked.indexOf(item);
-                const rankStr = rankIdx >= 0 ? '#' + (rankIdx + 1) : (item.validation.valid ? '--' : item.validation.reason.split(':')[0]);
+                const rankStr = rankIdx >= 0 ? '#' + (rankIdx + 1) : (item.validation.valid ? '--' : escapeHtml(item.validation.reason.split(':')[0]));
                 html += `<pre class="text-xs font-mono bg-black/30 p-3 rounded-lg whitespace-pre-wrap mb-2 border border-[var(--border)] text-[var(--text-main)]">RANK: ${rankStr}\n${formatResult(item)}</pre>`;
             }
             container.innerHTML = html;
             status.innerText = ideaList.length + ' idea(s) evaluated.';
+        }
+
+        function resetDecisionFields() {
+            $('ideaLabel').value = '';
+            $('ideaDomain').value = '';
+            $('fieldBuyer').value = '';
+            $('fieldRole').value = '';
+            $('fieldTask').value = '';
+            $('fieldOutcome').value = '';
+            $('evidenceText').value = '';
+            // Reset score and confidence to defaults
+            VAR_NAMES.forEach(v => {
+                const scoreEl = $(`score${v}`);
+                if (scoreEl) scoreEl.value = 5;
+                const confEl = $(`conf${v}`);
+                if (confEl) confEl.value = 2;
+            });
         }
 
         $('scoreIdeaBtn').addEventListener('click', () => {
@@ -1180,7 +1224,7 @@
         });
         $('clearIdeasBtn').addEventListener('click', () => {
             ideaList = [];
-            ['ideaLabel', 'fieldBuyer', 'fieldRole', 'fieldTask', 'fieldOutcome', 'evidenceText'].forEach(id => $(id).value = '');
+            resetDecisionFields();
             renderResults();
         });
 
@@ -1210,7 +1254,7 @@
                     ${contentHtml}
                     <div class="flex justify-between mt-6">
                         ${showSkip ? '<button id="onboarding-skip" class="btn-secondary text-xs" title="Skip the tutorial">Skip All</button>' : '<span></span>'}
-                        <button id="onboarding-primary" class="btn-primary">${primaryText}</button>
+                        <button id="onboarding-primary" class="btn-primary">${escapeHtml(primaryText)}</button>
                     </div>
                 </div>`;
                 document.body.appendChild(overlay);
@@ -1239,8 +1283,8 @@
                 }
                 const step = steps[index];
                 const html = `
-                <h3 class="text-lg font-bold mb-2">${step.title}</h3>
-                <p class="text-sm text-[var(--text-secondary)] leading-relaxed">${step.text}</p>
+                <h3 class="text-lg font-bold mb-2">${escapeHtml(step.title)}</h3>
+                <p class="text-sm text-[var(--text-secondary)] leading-relaxed">${escapeHtml(step.text)}</p>
                 <div class="text-xs text-[var(--text-tertiary)] mt-3">Step ${index+1} of ${steps.length}</div>
                 `;
                 createOverlay(html, () => {
